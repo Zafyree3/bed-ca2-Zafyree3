@@ -8,5 +8,8 @@
 		"dev": "nodemon index.js"
 	},
 	"author": "Irman Zafyree",
-	"license": "ISC"
+	"license": "ISC",
+	"dependencies": {
+		"mysql2": "^3.6.2"
+	}
 }
