@@ -11,7 +11,7 @@ function insertNewTask(data, callback) {
 	pool.query(SQLQUERY, VALUES, callback);
 }
 
-function selectAllTasks(data, callback) {
+function selectAllTasks(callback) {
 	const SQLQUERY = `
         SELECT * FROM Task
         ORDER BY task_id;

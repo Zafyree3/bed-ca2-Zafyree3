@@ -11,7 +11,7 @@ function insertNewUser(data, callback) {
 	pool.query(SQLQUERY, VALUES, callback);
 }
 
-function selectAllUsers(data, callback) {
+function selectAllUsers(callback) {
 	const SQLQUERY = `
         SELECT * FROM User
         ORDER BY User.user_id;

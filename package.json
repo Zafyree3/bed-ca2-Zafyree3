@@ -6,11 +6,15 @@
 	"scripts": {
 		"start": "node index.js",
 		"dev": "nodemon index.js",
-		"init": "node src/SQL/configs/initTables.js"
+		"init": "node src/SQL/configs/initTables.js",
+		"populate": "npm run init && node src/SQL/services/loadData.js"
 	},
 	"author": "Irman Zafyree",
 	"license": "ISC",
 	"dependencies": {
-		"mysql2": "^3.6.2"
+		"csv-parser": "^3.0.0",
+		"express": "^4.18.2",
+		"mysql2": "^3.6.2",
+		"node-icecream": "^1.0.0"
 	}
 }
