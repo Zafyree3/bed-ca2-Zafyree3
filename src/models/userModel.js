@@ -1,6 +1,6 @@
 const pool = require("../services/db");
 
-function insertNewUser(data, callback) {
+async function insertNewUser(data, callback) {
 	const SQLQUERY = `
         INSERT INTO User (username, email)
         VALUES (?, ?);
@@ -8,19 +8,23 @@ function insertNewUser(data, callback) {
 
 	const VALUES = [data.username, data.email];
 
-	pool.query(SQLQUERY, VALUES, callback);
+	const [header, _] = await pool.query(SQLQUERY, VALUES);
+
+	return header;
 }
 
-function selectAllUsers(callback) {
+async function selectAllUsers(callback) {
 	const SQLQUERY = `
         SELECT * FROM User
         ORDER BY User.user_id;
     `;
 
-	pool.query(SQLQUERY, callback);
+	const [header, _] = await pool.query(SQLQUERY, callback);
+
+	return header;
 }
 
-function selectUserById(data, callback) {
+async function selectUserById(data) {
 	const SQLQUERY = `
         SELECT * FROM User
         WHERE user_id = ?;
@@ -28,10 +32,12 @@ function selectUserById(data, callback) {
 
 	const VALUES = [data.user_id];
 
-	pool.query(SQLQUERY, VALUES, callback);
+	const [header, _] = await pool.query(SQLQUERY, VALUES);
+
+	return header;
 }
 
-function updateUserById(data, callback) {
+async function updateUserById(data) {
 	const SQLQUERY = `
         UPDATE User
         SET username = ?, email = ?
@@ -40,10 +46,12 @@ function updateUserById(data, callback) {
 
 	const VALUES = [data.username, data.email, data.user_id];
 
-	pool.query(SQLQUERY, VALUES, callback);
+	const [header, _] = await pool.query(SQLQUERY, VALUES);
+
+	return header;
 }
 
-function deleteUserById(data, callback) {
+async function deleteUserById(data) {
 	const SQLQUERY = `
         DELETE FROM User
         WHERE user_id = ?;
@@ -53,7 +61,9 @@ function deleteUserById(data, callback) {
 
 	const VALUES = [data.user_id];
 
-	pool.query(SQLQUERY, VALUES, callback);
+	const [header, _] = await pool.query(SQLQUERY, VALUES);
+
+	return header;
 }
 
 module.exports = {

@@ -1,6 +1,6 @@
 const pool = require("../services/db");
 
-function insertNewTaskProgress(data, callback) {
+async function insertNewTaskProgress(data, callback) {
 	const SQLQUERY = `
         INSERT INTO TaskProgress (user_id, task_id, completion_date, notes)
         VALUES (?,?,?,?);
@@ -8,10 +8,12 @@ function insertNewTaskProgress(data, callback) {
 
 	const VALUES = [data.user_id, data.task_id, data.completion_date, data.notes];
 
-	pool.query(SQLQUERY, VALUES, callback);
+	const [header, _] = await pool.query(SQLQUERY, VALUES);
+
+	return header;
 }
 
-function selectTaskProgressById(data, callback) {
+async function selectTaskProgressById(data, callback) {
 	const SQLQUERY = `
         SELECT * FROM TaskProgress
         WHERE progress_id = ?;
@@ -19,10 +21,12 @@ function selectTaskProgressById(data, callback) {
 
 	const VALUES = [data.progress_id];
 
-	pool.query(SQLQUERY, VALUES, callback);
+	const [header, _] = await pool.query(SQLQUERY, VALUES);
+
+	return header;
 }
 
-function updateTaskProgressById(data, callback) {
+async function updateTaskProgressById(data, callback) {
 	const SQLQUERY = `
         UPDATE TaskProgress
         SET user_id = ?, task_id = ?, completion_date = ?, notes = ?
@@ -37,10 +41,12 @@ function updateTaskProgressById(data, callback) {
 		data.progress_id,
 	];
 
-	pool.query(SQLQUERY, VALUES, callback);
+	const [header, _] = await pool.query(SQLQUERY, VALUES);
+
+	return header;
 }
 
-function deleteTaskProgressById(data, callback) {
+async function deleteTaskProgressById(data, callback) {
 	const SQLQUERY = `
         DELETE FROM TaskProgress
         WHERE progress_id = ?;
@@ -50,7 +56,9 @@ function deleteTaskProgressById(data, callback) {
 
 	const VALUES = [data.progress_id];
 
-	pool.query(SQLQUERY, VALUES, callback);
+	const [header, _] = await pool.query(SQLQUERY, VALUES);
+
+	return header;
 }
 
 module.exports = {
