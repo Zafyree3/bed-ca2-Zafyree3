@@ -1,3 +1,4 @@
+const { head } = require("../app");
 const pool = require("../services/db");
 const ic = require("node-icecream")();
 
@@ -25,7 +26,7 @@ async function selectAllTasks() {
 	return header;
 }
 
-function selectTaskById(data, callback) {
+async function selectTaskById(data) {
 	const SQLQUERY = `
         SELECT * FROM Task
         WHERE task_id = ?;
@@ -33,10 +34,12 @@ function selectTaskById(data, callback) {
 
 	const VALUES = [data.task_id];
 
-	pool.query(SQLQUERY, VALUES, callback);
+	const [header, _] = await pool.query(SQLQUERY, VALUES);
+
+	return header;
 }
 
-function updateTaskById(data, callback) {
+async function updateTaskById(data) {
 	const SQLQUERY = `
         UPDATE Task
         SET title = ?, description = ?, points = ?,
@@ -45,10 +48,12 @@ function updateTaskById(data, callback) {
 
 	const VALUES = [data.title, data.description, data.points, data.task_id];
 
-	pool.query(SQLQUERY, VALUES, callback);
+	const [header, _] = await pool.query(SQLQUERY, VALUES);
+
+	return header;
 }
 
-function deleteTaskById(data, callback) {
+async function deleteTaskById(data) {
 	const SQLQUERY = `
         DELETE FROM Task
         WHERE task_id = ?;
@@ -58,7 +63,9 @@ function deleteTaskById(data, callback) {
 
 	const VALUES = [data.task_id];
 
-	pool.query(SQLQUERY, VALUES, callback);
+	const [header, _] = await pool.query(SQLQUERY, VALUES);
+
+	return header;
 }
 
 module.exports = {
