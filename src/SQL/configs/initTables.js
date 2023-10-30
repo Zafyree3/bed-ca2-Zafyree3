@@ -31,9 +31,9 @@ CREATE TABLE TaskProgress (
 
 pool.query(SQLQUERY, (error, results, fields) => {
 	if (error) {
-		console.error(error);
+		console.error("Error when creating tables: ", error);
 	} else {
-		console.log("Tables created successfully:");
+		console.log("Tables created successfully: ", results);
 	}
 
 	process.exit();
