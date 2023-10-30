@@ -5,7 +5,7 @@ const setting = {
 	host: "127.0.0.1",
 	user: "root",
 	password: "Zafyree@3003",
-	database: "pokemon",
+	database: "bed_ca1",
 	multipleStatements: true,
 	dateStrings: true,
 };
