@@ -1,6 +1,6 @@
 const fs = require("fs");
 const csvParser = require("csv-parser");
-const taskModel = require("../models/taskModel.js");
+const taskModel = require("../SQL/models/taskModel.js");
 
 let csvData = [];
 

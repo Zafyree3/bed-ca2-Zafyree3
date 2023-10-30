@@ -1,4 +1,4 @@
-const userModel = require("../../SQL/models/userModel");
+const userModel = require("../models/userModel");
 
 module.exports.getUsers = (req, res, next) => {
 	results = userModel.selectAllUsers((error, results, fields) => {
