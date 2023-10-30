@@ -2,22 +2,17 @@ const fs = require("fs");
 const csvParser = require("csv-parser");
 const taskModel = require("../models/taskModel.js");
 
-let csvData = [];
-
-const callback = (error, results, fields) => {
-	if (error) {
-		console.error(error);
-	}
-};
-
 fs.createReadStream("./src/tasks.csv") // reads the file
 	.pipe(csvParser())
-	.on("data", (data) => csvData.push(data)) // push each row to csvData
+	.on("data", async (data) => {
+		data.points = +data.points; // converts points from strings to ints
+		await taskModel
+			.insertNewTask(data)
+			.then((header) =>
+				console.log(`Inserted ${data.title} at task_id:${header.insertId}`)
+			); // prints what task_id is title
+	})
 	.on("end", async () => {
-		csvData.forEach(async (data) => {
-			// map thru each value in csvData and adds it to Task Table
-			data.points = +data.points; // convert it to int
-			await taskModel.insertNewTask(data, callback);
-		});
-		await taskModel.selectAllTasks(callback).then((data) => console.log(data));
+		await taskModel.selectAllTasks().then((header) => console.log(header)); // prints what has been added
+		process.exit();
 	});

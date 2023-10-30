@@ -1,6 +1,7 @@
 const pool = require("../services/db");
+const ic = require("node-icecream")();
 
-async function insertNewTask(data, callback) {
+async function insertNewTask(data) {
 	const SQLQUERY = `
         INSERT INTO Task (title, description, points)
         VALUES (?,?,?);
@@ -8,16 +9,20 @@ async function insertNewTask(data, callback) {
 
 	const VALUES = [data.title, data.description, data.points];
 
-	await pool.query(SQLQUERY, VALUES, callback);
+	const [header, _] = await pool.query(SQLQUERY, VALUES);
+
+	return header;
 }
 
-async function selectAllTasks(callback) {
+async function selectAllTasks() {
 	const SQLQUERY = `
         SELECT * FROM Task
         ORDER BY task_id;
     `;
 
-	await pool.query(SQLQUERY, callback);
+	const [header, _] = await pool.query(SQLQUERY);
+
+	return header;
 }
 
 function selectTaskById(data, callback) {
