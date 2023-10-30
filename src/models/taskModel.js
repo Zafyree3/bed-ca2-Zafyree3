@@ -1,6 +1,6 @@
 const pool = require("../services/db");
 
-function insertNewTask(data, callback) {
+async function insertNewTask(data, callback) {
 	const SQLQUERY = `
         INSERT INTO Task (title, description, points)
         VALUES (?,?,?);
@@ -8,16 +8,16 @@ function insertNewTask(data, callback) {
 
 	const VALUES = [data.title, data.description, data.points];
 
-	pool.query(SQLQUERY, VALUES, callback);
+	await pool.query(SQLQUERY, VALUES, callback);
 }
 
-function selectAllTasks(callback) {
+async function selectAllTasks(callback) {
 	const SQLQUERY = `
         SELECT * FROM Task
         ORDER BY task_id;
     `;
 
-	pool.query(SQLQUERY, callback);
+	await pool.query(SQLQUERY, callback);
 }
 
 function selectTaskById(data, callback) {

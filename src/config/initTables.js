@@ -29,12 +29,10 @@ CREATE TABLE TaskProgress (
 );
 `;
 
-pool.query(SQLQUERY, (error, results, fields) => {
-	if (error) {
-		console.error("Error when creating tables: ", error);
-	} else {
-		console.log("Tables created successfully: ", results);
-	}
-
-	process.exit();
-});
+pool
+	.query(SQLQUERY)
+	.then(() => {
+		console.log("Tables created");
+		process.exit();
+	})
+	.catch((err) => console.error(err));

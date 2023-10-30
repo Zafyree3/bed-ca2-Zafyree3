@@ -10,6 +10,6 @@ const setting = {
 	dateStrings: true,
 };
 
-const pool = mysql.createPool(setting);
+const pool = mysql.createPool(setting).promise();
 
 module.exports = pool;

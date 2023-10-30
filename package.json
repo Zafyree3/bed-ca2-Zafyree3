@@ -6,8 +6,8 @@
 	"scripts": {
 		"start": "node index.js",
 		"dev": "nodemon index.js",
-		"init": "node src/SQL/configs/initTables.js",
-		"populate": "npm run init && node src/SQL/services/loadData.js"
+		"init": "node src/config/initTables.js",
+		"populate": "npm run init && node src/services/loadData.js"
 	},
 	"author": "Irman Zafyree",
 	"license": "ISC",
