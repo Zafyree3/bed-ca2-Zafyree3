@@ -41,9 +41,9 @@ async function selectTaskById(data) {
 async function updateTaskById(data) {
 	const SQLQUERY = `
         UPDATE Task
-        SET title = ?, description = ?, points = ?,
+        SET title = ?, description = ?, points = ?
         WHERE task_id = ?;
-    `;
+		`;
 
 	const VALUES = [data.title, data.description, data.points, data.task_id];
 

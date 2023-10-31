@@ -57,25 +57,29 @@ async function updateTaskFromId(req, res, next) {
 		return;
 	}
 
-	const taskData = await taskModel.selectTaskById(data);
+	let taskData = await taskModel.selectTaskById({ task_id: req.params.id });
 
-	const data = {
-		task_id: req.params.id,
-		title: req.body.title != undefined ? req.body.title : taskData.title,
-		description:
-			req.body.description != undefined
-				? req.body.description
-				: taskData.description,
-		points: req.body.points != undefined ? req.body.points : taskData.points,
-	};
+	taskData = taskData[0];
 
-	const results = await taskModel.updateTaskById(data);
+	if (req.body.title != undefined) {
+		taskData.title = req.body.title;
+	}
+	if (req.body.description != undefined) {
+		taskData.description = req.body.description;
+	}
+	if (req.body.points != undefined) {
+		taskData.points = +req.body.points;
+	}
 
-	res.status(200).json(data);
+	console.log(taskData);
+
+	const results = await taskModel.updateTaskById(taskData);
+
+	res.status(200).json(taskData);
 }
 
 async function deleteTaskFromId(req, res, next) {
-	await taskModel.deleteTaskById(data);
+	await taskModel.deleteTaskById({ task_id: req.params.id });
 
 	next();
 }

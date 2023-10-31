@@ -34,7 +34,7 @@ async function readUserFromId(req, res, next) {
 		user_id: req.params.id,
 	};
 
-	const results = await userModel.readUserFromId(data);
+	const results = await userModel.selectUserById(data);
 
 	res.status(200).json(results[0]);
 }
@@ -47,22 +47,26 @@ async function updateUserFromId(req, res, next) {
 		return;
 	}
 
-	const userData = await userModel.selectUserById({ user_id: req.params.id });
+	let userData = await userModel.selectUserById({ user_id: req.params.id });
+	userData = userData[0];
 
-	const data = {
-		user_id: req.params.id,
-		username:
-			req.body.username != undefined ? req.body.username : userData.username,
-		email: req.body.email != undefined ? req.body.email : userData.email,
-	};
+	console.log(userData);
 
-	const results = await userModel.updateUserById(data);
+	if (req.body.email != undefined) {
+		userData.email = req.body.email;
+	}
 
-	res.status(200).json(data);
+	if (req.body.username != undefined) {
+		userData.username = req.body.username;
+	}
+
+	const results = await userModel.updateUserById(userData);
+
+	res.status(200).json(userData);
 }
 
 async function deleteUserFromId(req, res, next) {
-	await userModel.deleteUserById(data);
+	await userModel.deleteUserById({ user_id: req.params.id });
 
 	next();
 }
@@ -85,7 +89,7 @@ async function checkIfUserExist(req, res, next) {
 async function checkIfEmailIsUsed(req, res, next) {
 	const usersData = await userModel.selectAllUsers();
 
-	if (usersData.findIndex((user) => user.email == req.body.email) == -1) {
+	if (usersData.findIndex((user) => user.email == req.body.email) != -1) {
 		res.status(409).json({ error: "Email is already being used" });
 		return;
 	}
@@ -94,9 +98,9 @@ async function checkIfEmailIsUsed(req, res, next) {
 }
 
 async function checkIfUsernameIsUsed(req, res, next) {
-	const usersData = await userModel.selectAllTasks();
+	const usersData = await userModel.selectAllUsers();
 
-	if (usersData.findIndex((user) => user.username == req.body.username) == -1) {
+	if (usersData.findIndex((user) => user.username == req.body.username) != -1) {
 		res.status(409).json({ error: "Username is already being used" });
 		return;
 	}

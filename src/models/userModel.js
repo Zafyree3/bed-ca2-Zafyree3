@@ -42,7 +42,7 @@ async function updateUserById(data) {
         UPDATE User
         SET username = ?, email = ?
         WHERE user_id = ?;
-    `;
+`;
 
 	const VALUES = [data.username, data.email, data.user_id];
 
