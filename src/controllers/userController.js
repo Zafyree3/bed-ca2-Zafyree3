@@ -111,5 +111,6 @@ module.exports = {
 	updateUserFromId,
 	deleteUserFromId,
 	checkIfUserExist,
+	checkIfEmailIsUsed,
 	checkIfUsernameIsUsed,
 };
