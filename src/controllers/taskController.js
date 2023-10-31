@@ -45,23 +45,29 @@ async function readTasksFromId(req, res, next) {
 }
 
 async function updateTaskFromId(req, res, next) {
-	const data = {
-		task_id: req.params.id,
-		title: req.body.title,
-		description: req.body.description,
-		points: req.body.points,
-	};
-
 	if (
-		data.title == undefined &&
-		data.description == undefined &&
-		data.points == undefined
+		req.body.title == undefined &&
+		req.body.description == undefined &&
+		req.body.points == undefined
 	) {
 		res.status(400).json({
 			error:
 				"Please ensure the request body contains a title, description or points",
 		});
+		return;
 	}
+
+	const taskData = await taskModel.selectTaskById(data);
+
+	const data = {
+		task_id: req.params.id,
+		title: req.body.title != undefined ? req.body.title : taskData.title,
+		description:
+			req.body.description != undefined
+				? req.body.description
+				: taskData.description,
+		points: req.body.points != undefined ? req.body.points : taskData.points,
+	};
 
 	const results = await taskModel.updateTaskById(data);
 
@@ -69,17 +75,6 @@ async function updateTaskFromId(req, res, next) {
 }
 
 async function deleteTaskFromId(req, res, next) {
-	const tasksData = await taskModel.selectAllTasks();
-
-	const data = {
-		task_id: req.params.id,
-	};
-
-	if (tasksData.findIndex((task) => task.task_id == data.task_id) == -1) {
-		res.status(404).json({ error: `Cannot find task with id ${data.user_id}` });
-		return;
-	}
-
 	await taskModel.deleteTaskById(data);
 
 	next();

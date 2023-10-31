@@ -15,23 +15,10 @@ async function createUser(req, res, next) {
 		return;
 	}
 
-	const usersData = await userModel.selectAllUsers(); // Gets all the userData
-
 	const data = {
 		email: req.body.email,
 		username: req.body.username,
 	};
-
-	usersDataEmail = usersData.map((data) => {
-		// get all the user emails
-		return data.email;
-	});
-
-	if (usersDataEmail.findIndex((email) => email == data.email) != -1) {
-		// Checks whether the email has been used
-		res.status(409).json({ error: "Email has already been added" });
-		return;
-	}
 
 	const results = await userModel.insertNewUser(data);
 
@@ -57,32 +44,17 @@ async function updateUserFromId(req, res, next) {
 		res.status(400).json({
 			error: "Please ensure the request body contains an username or email",
 		});
+		return;
 	}
+
+	const userData = await userModel.selectUserById({ user_id: req.params.id });
 
 	const data = {
 		user_id: req.params.id,
-		username: req.body.username,
-		email: req.body.email,
+		username:
+			req.body.username != undefined ? req.body.username : userData.username,
+		email: req.body.email != undefined ? req.body.email : userData.email,
 	};
-
-	const usersData = await userModel.selectAllUsers();
-
-	if (usersData.findIndex((user) => user.user_id == data.user_id) == -1) {
-		// Check whether the user exist
-		res.status(404).json({ error: `Cannot find user with id ${data.user_id}` });
-		return;
-	}
-
-	if (usersData.findIndex((user) => user.email == data.email) != -1) {
-		// Checks whether the email has been used
-		res.status(409).json({ error: "Email is already being used" });
-		return;
-	}
-	if (usersData.findIndex((user) => user.username == data.username) != -1) {
-		// Checks whether the username has been used
-		res.status(409).json({ error: "Username is already being used" });
-		return;
-	}
 
 	const results = await userModel.updateUserById(data);
 
@@ -90,6 +62,12 @@ async function updateUserFromId(req, res, next) {
 }
 
 async function deleteUserFromId(req, res, next) {
+	await userModel.deleteUserById(data);
+
+	next();
+}
+
+async function checkIfUserExist(req, res, next) {
 	const usersData = await userModel.selectAllUsers();
 
 	const data = {
@@ -101,7 +79,27 @@ async function deleteUserFromId(req, res, next) {
 		return;
 	}
 
-	await userModel.deleteUserById(data);
+	next();
+}
+
+async function checkIfEmailIsUsed(req, res, next) {
+	const usersData = await userModel.selectAllUsers();
+
+	if (usersData.findIndex((user) => user.email == req.body.email) == -1) {
+		res.status(409).json({ error: "Email is already being used" });
+		return;
+	}
+
+	next();
+}
+
+async function checkIfUsernameIsUsed(req, res, next) {
+	const usersData = await userModel.selectAllTasks();
+
+	if (usersData.findIndex((user) => user.username == req.body.username) == -1) {
+		res.status(409).json({ error: "Username is already being used" });
+		return;
+	}
 
 	next();
 }
@@ -112,4 +110,6 @@ module.exports = {
 	readUserFromId,
 	updateUserFromId,
 	deleteUserFromId,
+	checkIfUserExist,
+	checkIfUsernameIsUsed,
 };
