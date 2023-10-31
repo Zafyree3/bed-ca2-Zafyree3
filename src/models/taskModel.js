@@ -1,4 +1,3 @@
-const { head } = require("../app");
 const pool = require("../services/db");
 const ic = require("node-icecream")();
 

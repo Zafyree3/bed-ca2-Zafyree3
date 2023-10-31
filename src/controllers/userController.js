@@ -42,11 +42,12 @@ async function createUser(req, res, next) {
 }
 
 async function readUserFromId(req, res, next) {
+	// TODO: make sure user exist
 	const data = {
 		user_id: req.params.id,
 	};
 
-	const results = await userModel.selectUserById(data);
+	const results = await userModel.readUserFromId(data);
 
 	res.status(200).json(results[0]);
 }
