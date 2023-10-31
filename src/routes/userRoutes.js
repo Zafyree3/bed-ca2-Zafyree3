@@ -1,9 +1,17 @@
 const express = require("express");
 const router = express.Router();
 
-const controller = require("../controllers/userController");
+const userController = require("../controllers/userController");
+const progressController = require("../controllers/progressController");
 
-router.get("/", controller.getUsers);
-router.post("/", controller.postUser);
+router.get("/", userController.readUsers);
+router.post("/", userController.createUser);
+router.get("/:id", userController.readUserFromId);
+router.put("/:id", userController.updateUserFromId);
+router.delete(
+	"/:id",
+	userController.deleteUserFromId,
+	progressController.deleteProgressFromUserId
+);
 
 module.exports = router;

@@ -1,6 +1,6 @@
 const pool = require("../services/db");
 
-async function insertNewUser(data, callback) {
+async function insertNewUser(data) {
 	const SQLQUERY = `
         INSERT INTO User (username, email)
         VALUES (?, ?);
@@ -13,13 +13,13 @@ async function insertNewUser(data, callback) {
 	return header;
 }
 
-async function selectAllUsers(callback) {
+async function selectAllUsers() {
 	const SQLQUERY = `
         SELECT * FROM User
         ORDER BY User.user_id;
     `;
 
-	const [header, _] = await pool.query(SQLQUERY, callback);
+	const [header, _] = await pool.query(SQLQUERY);
 
 	return header;
 }

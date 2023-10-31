@@ -61,9 +61,25 @@ async function deleteTaskProgressById(data, callback) {
 	return header;
 }
 
+async function deleteTaskProgressByUserId(data, callback) {
+	const SQLQUERY = `
+        DELETE FROM TaskProgress
+        WHERE user_id = ?;
+
+        ALTER TABLE User AUTO_INCREMENT = 1;
+    `;
+
+	const VALUES = [data.user_id];
+
+	const [header, _] = await pool.query(SQLQUERY, VALUES);
+
+	return header;
+}
+
 module.exports = {
 	insertNewTaskProgress,
 	selectTaskProgressById,
 	updateTaskProgressById,
 	deleteTaskProgressById,
+	deleteTaskProgressByUserId,
 };
