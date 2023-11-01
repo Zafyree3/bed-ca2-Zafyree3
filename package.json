@@ -7,7 +7,8 @@
 		"start": "node index.js",
 		"dev": "nodemon index.js",
 		"init": "node src/config/initTables.js",
-		"populate": "npm run init && node src/services/loadData.js"
+		"loadTasks": "node src/services/preInsertTasks.js",
+		"loadUsers": "node src/services/preInsertUsers.js"
 	},
 	"author": "Irman Zafyree",
 	"license": "ISC",

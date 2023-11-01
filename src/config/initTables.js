@@ -38,8 +38,7 @@ CREATE TABLE TaskProgress (
 CREATE TABLE Cat (
     cat_num INT PRIMARY KEY,
     breed TEXT,
-    favourite_item_id INT,
-    ability INT
+    ability_id INT
 );
   
 CREATE TABLE CatOwned (
@@ -68,7 +67,7 @@ CREATE TABLE Item (
     name TEXT,
     price INT,
     description TEXT,
-    ability INT
+    ability_id INT
 );
   
 CREATE TABLE ItemOwned (
