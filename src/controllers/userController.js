@@ -50,8 +50,6 @@ async function updateUserFromId(req, res, next) {
 	let userData = await userModel.selectUserById({ user_id: req.params.id });
 	userData = userData[0];
 
-	console.log(userData);
-
 	if (req.body.email != undefined) {
 		userData.email = req.body.email;
 	}

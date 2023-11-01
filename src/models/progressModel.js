@@ -26,6 +26,16 @@ async function selectTaskProgressById(data) {
 	return header;
 }
 
+async function selectAllTaskProgresses() {
+	const SQLQUERY = `
+        SELECT * FROM TaskProgress
+    `;
+
+	const [header, _] = await pool.query(SQLQUERY);
+
+	return header;
+}
+
 async function updateTaskProgressById(data) {
 	const SQLQUERY = `
         UPDATE TaskProgress
@@ -98,4 +108,5 @@ module.exports = {
 	deleteTaskProgressById,
 	deleteTaskProgressByUserId,
 	deleteTaskProgressByTaskId,
+	selectAllTaskProgresses,
 };
