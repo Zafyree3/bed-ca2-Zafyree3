@@ -2,7 +2,7 @@ const fs = require("fs");
 const csvParser = require("csv-parser");
 const taskModel = require("../models/taskModel.js");
 
-fs.createReadStream("./src/tasks.csv") // reads the file
+fs.createReadStream("./tasks.csv") // reads the file
 	.pipe(csvParser())
 	.on("data", async (data) => {
 		data.points = +data.points; // converts points from strings to ints
