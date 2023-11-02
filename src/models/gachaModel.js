@@ -2,18 +2,18 @@ const pool = require("../services/db");
 
 async function insertNewGacha(data) {
 	const SQLQUERY = `
-        INSERT INTO Gacha (name, price, description)
-        VALUES (?, ?, ?);
+        INSERT INTO Gacha (box_id, name, price, description)
+        VALUES (?, ?, ?, ?);
     `;
 
-	const VALUES = [data.name, data.price, data.description];
+	const VALUES = [data.box_id, data.name, data.price, data.description];
 
 	const [header, _] = await pool.query(SQLQUERY, VALUES);
 
 	return header;
 }
 
-async function selectAllGacha() {
+async function selectAllGachas() {
 	const SQLQUERY = `
         SELECT * FROM Gacha
         ORDER BY Gacha.box_id;
@@ -68,7 +68,7 @@ async function deleteGachaById(data) {
 
 module.exports = {
 	insertNewGacha,
-	selectAllGacha,
+	selectAllGachas,
 	selectGachaById,
 	updateGachaById,
 	deleteGachaById,

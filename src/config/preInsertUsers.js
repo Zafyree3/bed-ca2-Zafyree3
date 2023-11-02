@@ -1,8 +1,8 @@
 const fs = require("fs");
 const csvParser = require("csv-parser");
-const userModel = require("src/models/userModel.js");
+const userModel = require("../models/userModel.js");
 
-const insertAllData = require("src/functions/insertAllData.js");
+const insertAllData = require("../functions/insertAllData.js");
 
 let dataList = [];
 
@@ -11,8 +11,8 @@ fs.createReadStream("src/data/users.csv") // reads the file
 	.on("data", (data) => dataList.push(data))
 	.on("end", async () => {
 		await insertAllData(
-			taskList,
-			"Task",
+			dataList,
+			"User",
 			true,
 			userModel.insertNewUser,
 			userModel.selectAllUsers

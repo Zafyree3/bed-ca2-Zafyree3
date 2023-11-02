@@ -1,4 +1,4 @@
-id,name,price,description,ability
+item_num,name,price,description,ability_id
 1,Purrfect Bits,20,The perfect food for any cats,6
 2,Canned Tuna,10,A simple food that any cats will like,7
 3,Sashimi,50,Sliced from the finest fish that gets the cats to you,4

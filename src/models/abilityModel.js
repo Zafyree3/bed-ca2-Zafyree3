@@ -2,11 +2,11 @@ const pool = require("../services/db");
 
 async function insertNewAbility(data) {
 	const SQLQUERY = `
-        INSERT INTO Ability (action, description)
-        VALUES (?,?);
+        INSERT INTO Ability (ability_id, action, description)
+        VALUES (?,?,?);
     `;
 
-	const VALUES = [data.action, data.description];
+	const VALUES = [data.ability_id, data.action, data.description];
 
 	const [header, _] = await pool.query(SQLQUERY, VALUES);
 

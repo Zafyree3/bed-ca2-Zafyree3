@@ -1,6 +1,9 @@
 function formatData(data, type) {
 	// converts values in data into their correct type
 	switch (type) {
+		case "Ability":
+			data.ability_id = +data.ability_id;
+			break;
 		case "User":
 			data.points = +data.points;
 			break;
@@ -8,13 +11,15 @@ function formatData(data, type) {
 			data.points = +data.points;
 			break;
 		case "Cat":
+			data.cat_num = +data.cat_num;
 			data.ability_id = +data.ability_id;
 			break;
 		case "Item":
 			data.price = +data.price;
-			data.ability_id = +data.price;
+			data.ability_id = +data.ability_id;
 			break;
 		case "Gacha":
+			data.box_id = +data.box_id;
 			data.price = +data.price;
 			break;
 		case "GachaDrop":

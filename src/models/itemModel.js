@@ -2,14 +2,15 @@ const pool = require("../services/db");
 
 async function insertNewItem(data) {
 	const SQLQUERY = `
-        INSERT INTO Item (name, price, description, ability_id)
-        VALUES (?,?,?,?)
+        INSERT INTO Item (item_num, name, price, description, ability_id)
+        VALUES (?,?,?,?,?)
     `;
 
 	const VALUES = [
-		data.item_name,
-		data.item_price,
-		data.item_description,
+		data.item_num,
+		data.name,
+		data.price,
+		data.description,
 		data.ability_id,
 	];
 
@@ -62,7 +63,7 @@ async function updateItemById(data) {
 	return header;
 }
 
-async function deleteAbilityById(data) {
+async function deleteItemById(data) {
 	const SQLQUERY = `
 		DELETE FROM Item
 		WHERE item_num = ?;

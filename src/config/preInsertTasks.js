@@ -1,8 +1,8 @@
 const fs = require("fs");
 const csvParser = require("csv-parser");
-const taskModel = require("src/models/taskModel.js");
+const taskModel = require("../models/taskModel.js");
 
-const insertAllData = require("src/functions/insertAllData.js");
+const insertAllData = require("../functions/insertAllData.js");
 
 let taskList = [];
 

@@ -43,6 +43,7 @@ CREATE TABLE Cat (
   
 CREATE TABLE CatOwned (
     cat_id INT PRIMARY KEY AUTO_INCREMENT,
+    cat_name TEXT,
     owner_id INT NOT NULL,
     cat_num INT NOT NULL,
     date_owned TIMESTAMP

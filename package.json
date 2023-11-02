@@ -7,8 +7,14 @@
 		"start": "node index.js",
 		"dev": "nodemon index.js",
 		"init": "node src/config/initTables.js",
-		"loadTasks": "node src/services/preInsertTasks.js",
-		"loadUsers": "node src/services/preInsertUsers.js"
+		"loadTasks": "node src/config/preInsertTasks.js",
+		"loadUsers": "node src/config/preInsertUsers.js",
+		"loadItems": "node src/config/preInsertItems.js",
+		"loadGachas": "node src/config/preInsertGachas.js",
+		"loadDrops": "node src/config/preInsertDrops.js",
+		"loadCats": "node src/config/preInsertCats.js",
+		"loadAbilities": "node src/config/preInsertAbilities.js",
+		"initData": "npm run init && npm run loadTasks && npm run loadUsers && npm run loadItems && npm run loadGachas && npm run loadDrops && npm run loadCats && npm run loadAbilities"
 	},
 	"author": "Irman Zafyree",
 	"license": "ISC",
