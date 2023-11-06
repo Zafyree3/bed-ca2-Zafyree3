@@ -9,6 +9,7 @@ async function deleteProgressFromUserId(req, res, next) {
 
 	res.sendStatus(204);
 }
+
 async function deleteProgressFromTaskId(req, res, next) {
 	const data = {
 		task_id: req.params.id,
@@ -43,6 +44,12 @@ async function createProgress(req, res, next) {
 	});
 }
 
+async function readProgress(req, res, next) {
+	const results = await progressModel.selectAllTaskProgresses();
+
+	res.status(200).json(results);
+}
+
 async function readProgressFromId(req, res, next) {
 	const data = {
 		progress_id: req.params.id,
@@ -51,6 +58,16 @@ async function readProgressFromId(req, res, next) {
 	const results = await progressModel.selectTaskProgressById(data);
 
 	res.status(200).json(results[0]);
+}
+
+async function readProgressFromUserId(req, res, next) {
+	const data = {
+		user_id: req.params.id,
+	};
+
+	const results = await progressModel.selectTaskProgressByUserId(data);
+
+	res.status(200).json(results);
 }
 
 async function updateProgressFromId(req, res, next) {
@@ -126,4 +143,6 @@ module.exports = {
 	updateProgressFromId,
 	deleteProgressFromId,
 	checkIfProgressExist,
+	readProgressFromUserId,
+	readProgress,
 };

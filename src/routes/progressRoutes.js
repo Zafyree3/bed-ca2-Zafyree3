@@ -4,6 +4,7 @@ const router = express.Router();
 const progressController = require("../controllers/progressController");
 
 router.post("/", progressController.createProgress);
+router.get("/", progressController.readProgress);
 router.get(
 	"/:id",
 	progressController.checkIfProgressExist,

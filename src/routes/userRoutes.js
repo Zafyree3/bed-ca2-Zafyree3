@@ -29,5 +29,10 @@ router.delete(
 	userController.deleteUserFromId,
 	progressController.deleteProgressFromUserId
 );
+router.get(
+	"/:id/progress",
+	userController.checkIfUserExist,
+	progressController.readProgressFromUserId
+);
 
 module.exports = router;
