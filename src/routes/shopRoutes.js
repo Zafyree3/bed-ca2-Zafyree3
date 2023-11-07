@@ -6,6 +6,7 @@ const itemRouter = require("../routes/itemRoutes.js");
 const gachaRouter = require("../routes/gachaRoutes.js");
 
 router.get("/", shopController.readShop);
+router.post("/buy", shopController.buyItem);
 router.use("/items", itemRouter);
 router.use("/gachas", gachaRouter);
 

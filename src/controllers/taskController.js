@@ -71,8 +71,6 @@ async function updateTaskFromId(req, res, next) {
 		taskData.points = +req.body.points;
 	}
 
-	console.log(taskData);
-
 	const results = await taskModel.updateTaskById(taskData);
 
 	res.status(200).json(taskData);

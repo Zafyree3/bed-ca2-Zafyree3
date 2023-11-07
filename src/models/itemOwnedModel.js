@@ -66,10 +66,26 @@ async function deleteItemOwnedById(data) {
 	return header;
 }
 
+async function deleteItemOwnedByItemNum(data) {
+	const SQLQUERY = `
+		DELETE FROM ItemOwned
+		WHERE item_num = ?;
+
+		ALTER TABLE ItemOwned AUTO_INCREMENT = 1;
+	`;
+
+	const VALUES = [data.item_num];
+
+	const [header, _] = await pool.query(SQLQUERY, VALUES);
+
+	return header;
+}
+
 module.exports = {
 	insertNewItemOwned,
 	selectAllItemOwned,
 	selectItemOwnedById,
 	updateItemOwnedById,
 	deleteItemOwnedById,
+	deleteItemOwnedByItemNum,
 };
