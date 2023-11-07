@@ -51,6 +51,20 @@ async function updateUserById(data) {
 	return header;
 }
 
+async function updateUserPointsById(data) {
+	const SQLQUERY = `
+		UPDATE User
+		SET points = ?
+		WHERE user_id = ?;
+	`;
+
+	const VALUES = [data.points, data.user_id];
+
+	const [header, _] = await pool.query(SQLQUERY, VALUES);
+
+	return header;
+}
+
 async function deleteUserById(data) {
 	const SQLQUERY = `
         DELETE FROM User
@@ -72,4 +86,5 @@ module.exports = {
 	selectUserById,
 	updateUserById,
 	deleteUserById,
+	updateUserPointsById,
 };

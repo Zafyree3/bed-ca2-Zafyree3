@@ -63,6 +63,34 @@ async function updateUserFromId(req, res, next) {
 	res.status(200).json(userData);
 }
 
+async function updateUserPointsFromId(req, res, next) {
+	let data = {
+		user_id: req.params.id,
+		points: req.body.points,
+	};
+
+	if (res.locals.next) {
+		data = {
+			user_id: res.locals.data.user_id,
+			points: res.locals.data.points,
+		};
+
+		data.points = data.points - res.locals.data.points;
+	}
+
+	const results = await userModel.updateUserPointsById(data);
+
+	if (res.locals.next) {
+		next();
+		return;
+	}
+
+	res.status(200).json({
+		user_id: data.user_id,
+		points: data.points,
+	});
+}
+
 async function deleteUserFromId(req, res, next) {
 	await userModel.deleteUserById({ user_id: req.params.id });
 
@@ -72,9 +100,15 @@ async function deleteUserFromId(req, res, next) {
 async function checkIfUserExist(req, res, next) {
 	const usersData = await userModel.selectAllUsers();
 
-	const data = {
+	let data = {
 		user_id: req.params.id,
 	};
+
+	if (res.locals.next) {
+		data = {
+			user_id: res.locals.data.user_id,
+		};
+	}
 
 	if (usersData.findIndex((user) => user.user_id == data.user_id) == -1) {
 		res.status(404).json({ error: `Cannot find user with id ${data.user_id}` });
@@ -106,6 +140,27 @@ async function checkIfUsernameIsUsed(req, res, next) {
 	next();
 }
 
+async function checkIfPointsIsEnuf(req, res, next) {
+	const data = {
+		user_id: req.params.id,
+	};
+
+	if (res.locals.next) {
+		data = {
+			user_id: res.locals.data.user_id,
+		};
+	}
+
+	const userData = await userModel.selectUserById(data);
+
+	if (res.locals.data.points > userData[0].points) {
+		res.status(406).json({ error: "Not enough points" });
+		return;
+	}
+
+	next();
+}
+
 module.exports = {
 	readUsers,
 	createUser,
@@ -115,4 +170,6 @@ module.exports = {
 	checkIfUserExist,
 	checkIfEmailIsUsed,
 	checkIfUsernameIsUsed,
+	checkIfPointsIsEnuf,
+	updateUserPointsFromId,
 };

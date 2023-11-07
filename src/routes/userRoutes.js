@@ -23,6 +23,12 @@ router.put(
 	userController.checkIfUsernameIsUsed,
 	userController.updateUserFromId
 );
+router.put(
+	"/:id/points",
+	userController.checkIfUserExist,
+	userController.updateUserPointsFromId
+);
+
 router.delete(
 	"/:id",
 	userController.checkIfUserExist,
