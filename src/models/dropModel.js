@@ -37,6 +37,21 @@ async function selectGachaCatById(data) {
 	return header;
 }
 
+async function selectGachaCatByGachaId(data) {
+	const SQLQUERY = `
+		SELECT Cat.breed, Ability.description FROM GachaDrop
+		INNER JOIN Cat ON GachaDrop.cat_num = Cat.cat_num
+		INNER JOIN Ability ON Cat.ability_id = Ability.ability_id
+		WHERE gacha_id = ?;
+	`;
+
+	const VALUES = [data.gacha_id];
+
+	const [header, _] = await pool.query(SQLQUERY, VALUES);
+
+	return header;
+}
+
 async function updateGachaCatById(data) {
 	const SQLQUERY = `
         UPDATE GachaDrop
@@ -66,10 +81,27 @@ async function deleteGachaCatById(data) {
 	return header;
 }
 
+async function deleteGachaCatByGachaId(data) {
+	const SQLQUERY = `
+		DELETE FROM GachaDrop
+		WHERE gacha_id = ?;
+
+		ALTER TABLE GachaDrop AUTO_INCREMENT = 1;
+	`;
+
+	const VALUES = [data.gacha_id];
+
+	const [header, _] = await pool.query(SQLQUERY, VALUES);
+
+	return header;
+}
+
 module.exports = {
 	insertNewGachaCat,
 	selectAllGachaCat,
 	selectGachaCatById,
 	updateGachaCatById,
 	deleteGachaCatById,
+	selectGachaCatByGachaId,
+	deleteGachaCatByGachaId,
 };
