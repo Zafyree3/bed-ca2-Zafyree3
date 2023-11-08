@@ -14,7 +14,10 @@ async function insertNewItem(data) {
 		data.ability_id,
 	];
 
-	const [header, _] = await pool.query(SQLQUERY, VALUES);
+	const [header, _] = await pool.query(SQLQUERY, VALUES).catch((err) => {
+		console.error(err);
+		return err;
+	});
 
 	return header;
 }
@@ -51,9 +54,9 @@ async function updateItemById(data) {
 	`;
 
 	const VALUES = [
-		data.item_name,
-		data.item_price,
-		data.item_description,
+		data.name,
+		data.price,
+		data.description,
 		data.ability_id,
 		data.item_num,
 	];

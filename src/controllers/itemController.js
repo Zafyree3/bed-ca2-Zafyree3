@@ -35,6 +35,20 @@ async function readItemFull(req, res, next) {
 }
 
 async function createItemFromId(req, res, next) {
+	if (
+		req.body.item_num == undefined ||
+		req.body.name == undefined ||
+		req.body.price == undefined ||
+		req.body.description == undefined ||
+		req.body.ability_id == undefined
+	) {
+		res.status(400).json({
+			error:
+				"Please ensure the request body contains an item_num, name, price, description, and ability_id",
+		});
+		return;
+	}
+
 	const data = {
 		item_num: req.body.item_num,
 		name: req.body.name,
@@ -45,7 +59,19 @@ async function createItemFromId(req, res, next) {
 
 	let results = await itemModel.insertNewItem(data);
 
-	res.status(201).json(results);
+	if (results.errno != undefined) {
+		res.status(400).json({ error: results.sqlMessage });
+		return;
+	}
+
+	if (results.affectedRows == 0) {
+		res.status(400).json({ error: "Cannot create new item" });
+		return;
+	}
+
+	res.status(201).json({
+		...data,
+	});
 }
 
 async function updateItemFromId(req, res, next) {
@@ -97,8 +123,10 @@ async function checkIfItemExist(req, res, next) {
 		item_num: req.params.id,
 	};
 
-	if (itemData.findIndex((item) => item.item_num == data.id) == -1) {
-		res.status(404).json({ error: `Cannot find item with id ${data.id}` });
+	if (itemData.findIndex((item) => item.item_num == data.item_num) == -1) {
+		res
+			.status(404)
+			.json({ error: `Cannot find item with id ${data.item_num}` });
 		return;
 	}
 
