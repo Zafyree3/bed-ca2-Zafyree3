@@ -28,7 +28,7 @@ router.delete(
 	"/:id",
 	gachaController.checkIfGachaBoxExist,
 	gachaController.deleteGachaBoxFromId,
-	dropController.deleteGachaBoxFromId
+	dropController.deleteGachaCatFromGachaId
 );
 
 module.exports = router;

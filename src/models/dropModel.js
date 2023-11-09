@@ -96,6 +96,32 @@ async function deleteGachaCatByGachaId(data) {
 	return header;
 }
 
+async function selectRandomGachaCatByGachaId(data) {
+	const SQLQUERY = `
+		ALTER TABLE GachaDrop
+		ADD prob_sum float;
+		
+		UPDATE GachaDrop
+		SET prob_sum = (RAND() * chance)
+		WHERE gacha_id = ?;
+		
+		SELECT * FROM GachaDrop	
+		WHERE prob_sum in 
+		(
+		SELECT MAX(prob_sum) from GachaDrop
+		);
+		
+		ALTER TABLE GachaDrop
+		DROP COLUMN prob_sum;
+	`;
+
+	const VALUES = [data.gacha_id];
+
+	const [header, _] = await pool.query(SQLQUERY, VALUES);
+
+	return header;
+}
+
 module.exports = {
 	insertNewGachaCat,
 	selectAllGachaCat,
@@ -104,4 +130,5 @@ module.exports = {
 	deleteGachaCatById,
 	selectGachaCatByGachaId,
 	deleteGachaCatByGachaId,
+	selectRandomGachaCatByGachaId,
 };

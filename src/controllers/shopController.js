@@ -15,7 +15,22 @@ async function readShop(req, res, next) {
 async function buyItem(req, res, next) {
 	const data = {
 		item_num: req.body.item_num,
-		user_id: req.user.id,
+		user_id: req.body.id,
+	};
+
+	res.locals.data = {
+		...data,
+	};
+
+	res.locals.next = true;
+
+	next();
+}
+
+async function buyGacha(req, res, next) {
+	const data = {
+		box_id: req.body.gacha_id,
+		user_id: req.body.id,
 	};
 
 	res.locals.data = {
@@ -45,8 +60,28 @@ async function findItemPrice(req, res, next) {
 	next();
 }
 
+async function findGachaPrice(req, res, next) {
+	let data = {
+		box_id: req.body.box_id,
+	};
+
+	if (res.locals.next) {
+		data = {
+			box_id: res.locals.data.box_id,
+		};
+	}
+
+	const item = await gachaModel.selectGachaById(data);
+
+	res.locals.data.price = item[0].price;
+
+	next();
+}
+
 module.exports = {
 	readShop,
 	buyItem,
 	findItemPrice,
+	findGachaPrice,
+	buyGacha,
 };

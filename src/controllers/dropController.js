@@ -23,9 +23,9 @@ async function createGachaCatForGachaBoxFromId(req, res, next) {
 	res.json(result);
 }
 
-async function deleteGachaBoxFromId(req, res, next) {
+async function deleteGachaCatFromGachaId(req, res, next) {
 	const data = {
-		box_id: req.params.id,
+		gacha_id: req.params.id,
 	};
 
 	const results = await dropModel.deleteGachaCatByGachaId(data);
@@ -33,7 +33,18 @@ async function deleteGachaBoxFromId(req, res, next) {
 	res.status(200).json(results);
 }
 
+async function readRandomGachaCatFromGachaId(req, res, next) {
+	const data = {
+		gacha_id: req.params.id,
+	};
+
+	const results = await dropModel.selectRandomGachaCatByGachaId(data);
+
+	res.locals.data.cat_num = results[0].cat_num;
+}
+
 module.exports = {
 	createGachaCatForGachaBoxFromId,
-	deleteGachaBoxFromId,
+	deleteGachaCatFromGachaId,
+	readRandomGachaCatFromGachaId,
 };
