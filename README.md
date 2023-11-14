@@ -37,8 +37,8 @@ A Neko Atsume like game
 
 ### Users
 
-- [] create new user
-- [] read all users
-- [] read user by id
-- [] update user by id
-- [] create user by id
+- [ ] create new user
+- [ ] read all users
+- [ ] read user by id
+- [ ] update user by id
+- [ ] create user by id
