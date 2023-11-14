@@ -37,11 +37,11 @@ A Neko Atsume like game
 
 ### Users
 
-- [ ] create new user
-- [ ] read all users
-- [ ] read user by id
-- [ ] update user by id
-- [ ] delete user by id
+- [x] create new user
+- [x] read all users
+- [x] read user by id
+- [x] update user by id
+- [x] delete user by id
 
 - [ ] add new cats to display
 - [ ] remove cats from display
@@ -49,19 +49,19 @@ A Neko Atsume like game
 
 ### Tasks
 
-- [ ] create new task
-- [ ] read all tasks
-- [ ] read task by id
-- [ ] update task by id
-- [ ] delete user by id
+- [x] create new task
+- [x] read all tasks
+- [x] read task by id
+- [x] update task by id
+- [x] delete user by id
 
 ### Tasks Progress
 
-- [ ] create new task progress for user
-- [ ] read all task progress by user
-- [ ] read specific task progress by id
-- [ ] update task progress by id
-- [ ] delete task progress by id
+- [x] create new task progress for user
+- [x] read all task progress by user
+- [x] read specific task progress by id
+- [x] update task progress by id
+- [x] delete task progress by id
 
 ### Cats
 
@@ -82,27 +82,27 @@ A Neko Atsume like game
 
 ### Gacha
 
-- [ ] create new gacha with cats
-- [ ] read all available gachas
-- [ ] read gacha details with cats details by id
-- [ ] update gacha details by id
-- [ ] delete gacha by id
+- [x] create new gacha with cats
+- [x] read all available gachas
+- [x] read gacha details with cats details by id
+- [x] update gacha details by id
+- [x] delete gacha by id
 
 ### Item
 
-- [ ] create new item
-- [ ] read all available items
-- [ ] read item details by id
-- [ ] update item details by id
-- [ ] delete item by id
+- [x] create new item
+- [x] read all available items
+- [x] read item details by id
+- [x] update item details by id
+- [x] delete item by id
 
 ### Shop
 
-- [ ] read all things in shop (items, gachas)
-- [ ] read all items details in shop
-- [ ] read all gachas details in shop
-- [ ] buy items in shop
-- [ ] buy gachas in shop
+- [x] read all things in shop (items, gachas)
+- [x] read all items details in shop
+- [x] read all gachas details in shop
+- [x] buy items in shop
+- [x] buy gachas in shop
 
 ### Attack
 
