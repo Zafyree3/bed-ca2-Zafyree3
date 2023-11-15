@@ -32,7 +32,7 @@ async function createNewCat(req, res, next) {
 	) {
 		res.status(400).json({
 			error:
-				"Please ensure the request body contains an cat_num, breed and ability_id",
+				"Please ensure the request body contains a cat_num, breed and ability_id",
 		});
 		return;
 	}
@@ -86,7 +86,6 @@ async function updateCatFromId(req, res, next) {
 		catData.breed = req.body.breed;
 	}
 	if (req.body.ability_id != undefined) {
-		console.log("in");
 		catData.ability_id = req.body.ability_id;
 	}
 	if (req.body.cat_num != undefined) {

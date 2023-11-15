@@ -73,12 +73,12 @@ A Neko Atsume like game
 
 ### Cats Owned
 
-- [ ] create new cat for owner
-- [ ] read all cats owned
-- [ ] read all cats by owner id
-- [ ] read cats owned details by id
-- [ ] update cat owned details by id
-- [ ] delete cat owned by id
+- [x] create new cat for owner
+- [x] read all cats owned
+- [x] read all cats by owner id
+- [x] read cats owned details by id
+- [x] update cat owned details by id
+- [x] delete cat owned by id
 
 ### Gacha
 
