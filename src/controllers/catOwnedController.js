@@ -157,7 +157,7 @@ async function updateCatOwnedFromId(req, res, next) {
 
 	if (results.affectedRows == 0) {
 		// Checks whether the rows is affects
-		res.status(404).json({
+		res.status(409).json({
 			error: `Could not update the data for id: ${req.params.id}`,
 		});
 		return;

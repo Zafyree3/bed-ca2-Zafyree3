@@ -90,12 +90,12 @@ A Neko Atsume like game
 
 ### Drop
 
-- [ ] create new drop for gacha
-- [ ] read all drops
-- [ ] read all drop detailed
-- [ ] read all drops from gacha
-- [ ] update drops by id
-- [ ] delete drops by id
+- [x] create new drop for gacha
+- [x] read all drops
+- [x] read all drop detailed
+- [x] read all drops from gacha (_done via gacha drops_)
+- [x] update drops by id
+- [x] delete drops by id
 
 ### Item
 

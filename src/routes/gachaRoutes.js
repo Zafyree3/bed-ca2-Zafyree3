@@ -1,8 +1,12 @@
 const express = require("express");
 const router = express.Router();
 
+const dropRouter = require("./dropRoutes.js");
+
 const gachaController = require("../controllers/gachaController.js");
 const dropController = require("../controllers/dropController.js");
+
+router.use("/drops", dropRouter);
 
 router.get("/", gachaController.readGachas);
 router.get(

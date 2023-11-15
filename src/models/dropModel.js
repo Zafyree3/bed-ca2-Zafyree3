@@ -24,6 +24,20 @@ async function selectAllGachaCat() {
 	return header;
 }
 
+async function selectAllGachaCatDetail() {
+	const SQLQUERY = `
+		SELECT GachaDrop.drop_id, Cat.cat_num, Cat.breed as cat_breed, Ability.ability_id, Ability.description as ability_description, Gacha.box_id as gacha_id, Gacha.name as gacha_name FROM GachaDrop
+		INNER JOIN Gacha ON Gacha.box_id = GachaDrop.gacha_id
+		INNER JOIN Cat ON Cat.cat_num = GachaDrop.cat_num
+		INNER JOIN Ability ON Ability.ability_id = Cat.ability_id
+		ORDER By GachaDrop.drop_id;
+    `;
+
+	const [header, _] = await pool.query(SQLQUERY);
+
+	return header;
+}
+
 async function selectGachaCatById(data) {
 	const SQLQUERY = `
         SELECT * FROM GachaDrop
@@ -190,4 +204,5 @@ module.exports = {
 	selectGachaIdByCatNum,
 	selectChanceByGachaId,
 	updateChanceByDropId,
+	selectAllGachaCatDetail,
 };
