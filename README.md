@@ -65,11 +65,11 @@ A Neko Atsume like game
 
 ### Cats
 
-- [ ] create new cats
-- [ ] read all available cats
-- [ ] read cat details by id
-- [ ] update cat details by id
-- [ ] delete cat by id
+- [x] create new cats
+- [x] read all available cats
+- [x] read cat details by id
+- [x] update cat details by id
+- [x] delete cat by id
 
 ### Cats Owned
 
@@ -88,6 +88,15 @@ A Neko Atsume like game
 - [x] update gacha details by id
 - [x] delete gacha by id
 
+### Drop
+
+- [ ] create new drop for gacha
+- [ ] read all drops
+- [ ] read all drop detailed
+- [ ] read all drops from gacha
+- [ ] update drops by id
+- [ ] delete drops by id
+
 ### Item
 
 - [x] create new item
@@ -103,6 +112,14 @@ A Neko Atsume like game
 - [x] read all gachas details in shop
 - [x] buy items in shop
 - [x] buy gachas in shop
+
+### Abilities
+
+- [ ] create new abilities
+- [ ] read all abilities
+- [ ] read ability detail by id
+- [ ] update ability detail by id
+- [ ] delete ability by id
 
 ### Attack
 

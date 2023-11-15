@@ -52,6 +52,32 @@ async function selectGachaCatByGachaId(data) {
 	return header;
 }
 
+async function selectGachaIdByCatNum(data) {
+	const SQLQUERY = `
+		SELECT gacha_id FROM GachaDrop
+		WHERE cat_num = ?;
+	`;
+
+	const VALUES = [data.cat_num];
+
+	const [header, _] = await pool.query(SQLQUERY, VALUES);
+
+	return header;
+}
+
+async function selectChanceByGachaId(data) {
+	const SQLQUERY = `
+		SELECT drop_id, chance FROM GachaDrop
+		WHERE gacha_id = ?;
+	`;
+
+	const VALUES = [data.gacha_id];
+
+	const [header, _] = await pool.query(SQLQUERY, VALUES);
+
+	return header;
+}
+
 async function updateGachaCatById(data) {
 	const SQLQUERY = `
         UPDATE GachaDrop
@@ -60,6 +86,20 @@ async function updateGachaCatById(data) {
     `;
 
 	const VALUES = [data.cat_num, data.gacha_id, data.chance, data.drop_id];
+
+	const [header, _] = await pool.query(SQLQUERY, VALUES);
+
+	return header;
+}
+
+async function updateChanceByDropId(data) {
+	const SQLQUERY = `
+		UPDATE GachaDrop
+		SET chance = ?
+		WHERE drop_id = ?;
+	`;
+
+	const VALUES = [data.chance, data.drop_id];
 
 	const [header, _] = await pool.query(SQLQUERY, VALUES);
 
@@ -90,6 +130,21 @@ async function deleteGachaCatByGachaId(data) {
 	`;
 
 	const VALUES = [data.gacha_id];
+
+	const [header, _] = await pool.query(SQLQUERY, VALUES);
+
+	return header;
+}
+
+async function deleteGachaCatByCatNum(data) {
+	const SQLQUERY = `
+		DELETE FROM GachaDrop
+		WHERE cat_num = ?;
+
+		ALTER TABLE GachaDrop AUTO_INCREMENT = 1;
+	`;
+
+	const VALUES = [data.cat_num];
 
 	const [header, _] = await pool.query(SQLQUERY, VALUES);
 
@@ -131,4 +186,8 @@ module.exports = {
 	selectGachaCatByGachaId,
 	deleteGachaCatByGachaId,
 	selectRandomGachaCatByGachaId,
+	deleteGachaCatByCatNum,
+	selectGachaIdByCatNum,
+	selectChanceByGachaId,
+	updateChanceByDropId,
 };

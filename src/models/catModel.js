@@ -26,8 +26,22 @@ async function selectAllCats() {
 
 async function selectCatById(data) {
 	const SQLQUERY = `
-        SELECT * FROM Cat
-        WHERE cat_num = ?;
+		SELECT cat_num,breed,Ability.action as action, Ability.description as "ability description" FROM Cat
+		INNER JOIN Ability ON Ability.ability_id = Cat.ability_id
+		WHERE cat_num = ?;
+    `;
+
+	const VALUES = [data.cat_num];
+
+	const [header, _] = await pool.query(SQLQUERY, VALUES);
+
+	return header;
+}
+
+async function selectCatWithAbilityIdById(data) {
+	const SQLQUERY = `
+		SELECT cat_num,breed,ability_id FROM Cat
+		WHERE cat_num = ?;
     `;
 
 	const VALUES = [data.cat_num];
@@ -72,4 +86,5 @@ module.exports = {
 	selectCatById,
 	updateCatById,
 	deleteCatById,
+	selectCatWithAbilityIdById,
 };
