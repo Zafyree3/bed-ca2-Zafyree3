@@ -115,11 +115,11 @@ A Neko Atsume like game
 
 ### Abilities
 
-- [ ] create new abilities
-- [ ] read all abilities
-- [ ] read ability detail by id
-- [ ] update ability detail by id
-- [ ] delete ability by id
+- [x] create new abilities
+- [x] read all abilities
+- [x] read ability detail by id
+- [x] update ability detail by id
+- [x] delete ability by id
 
 ### Attack
 

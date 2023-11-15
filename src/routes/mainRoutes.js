@@ -7,6 +7,7 @@ const progressRouter = require("./progressRoutes");
 const shopRouter = require("./shopRoutes");
 const catRouter = require("./catRoutes");
 const catOwnedRouter = require("./catOwnedRoutes");
+const abilityRouter = require("./abilityRoutes");
 
 router.use("/users", userRoutes);
 router.use("/tasks", tasksRouter);
@@ -14,6 +15,7 @@ router.use("/task_progress", progressRouter);
 router.use("/shop", shopRouter);
 router.use("/cats", catRouter);
 router.use("/owned", catOwnedRouter);
+router.use("/ability", abilityRouter);
 
 router.use("/", (req, res, next) => {
 	res.status(200).send("The server is live!");

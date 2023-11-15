@@ -33,8 +33,6 @@ async function updateDropFromId(req, res, next) {
 
 	dropData = dropData[0];
 
-	console.log(dropData);
-
 	if (req.body.cat_num != undefined) {
 		dropData.cat_num = req.body.cat_num;
 	}
@@ -98,9 +96,9 @@ async function createGachaCatForGachaBoxFromId(req, res, next) {
 		chance: req.body.chance,
 	};
 
-	const result = await dropModel.insertNewGachaCat(data);
+	const results = await dropModel.insertNewGachaCat(data);
 
-	res.json(result);
+	res.status(201).json({ ...data });
 }
 
 async function deleteGachaCatFromGachaId(req, res, next) {
@@ -110,7 +108,7 @@ async function deleteGachaCatFromGachaId(req, res, next) {
 
 	const results = await dropModel.deleteGachaCatByGachaId(data);
 
-	res.status(200).json(results);
+	res.status(201).json(results);
 }
 
 async function readRandomGachaCatFromGachaId(req, res, next) {
