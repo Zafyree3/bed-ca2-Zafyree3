@@ -6,6 +6,7 @@ const userController = require("../controllers/userController.js");
 const inventoryController = require("../controllers/inventoryController.js");
 const collectionController = require("../controllers/collectionController.js");
 const dropController = require("../controllers/dropController.js");
+const pointsController = require("../controllers/pointsController.js");
 
 const itemRouter = require("../routes/itemRoutes.js");
 const gachaRouter = require("../routes/gachaRoutes.js");
@@ -16,8 +17,8 @@ router.post(
 	shopController.buyItem,
 	shopController.findItemPrice,
 	userController.checkIfUserExist,
-	userController.checkIfPointsIsEnuf,
-	userController.updateUserPointsFromId,
+	pointsController.checkIfPointsIsEnuf,
+	pointsController.updatePointsByUserId,
 	inventoryController.addItemOwned
 );
 
@@ -26,8 +27,8 @@ router.post(
 	shopController.buyGacha,
 	shopController.findGachaPrice,
 	userController.checkIfUserExist,
-	userController.checkIfPointsIsEnuf,
-	userController.updateUserPointsFromId,
+	pointsController.checkIfPointsIsEnuf,
+	pointsController.updatePointsByUserId,
 	dropController.readRandomGachaCatFromGachaId,
 	collectionController.addCatOwned
 );

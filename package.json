@@ -14,7 +14,8 @@
 		"loadDrops": "node src/config/preInsertDrops.js",
 		"loadCats": "node src/config/preInsertCats.js",
 		"loadAbilities": "node src/config/preInsertAbilities.js",
-		"initData": "npm run init && npm run loadTasks && npm run loadUsers && npm run loadItems && npm run loadGachas && npm run loadDrops && npm run loadCats && npm run loadAbilities"
+		"loadPoints": "node src/config/preInsertPoints.js",
+		"initData": "npm run init && npm run loadTasks && npm run loadUsers && npm run loadItems && npm run loadGachas && npm run loadDrops && npm run loadCats && npm run loadAbilities && npm run loadPoints"
 	},
 	"author": "Irman Zafyree",
 	"license": "ISC",

@@ -3,6 +3,7 @@ const router = express.Router();
 
 const userController = require("../controllers/userController");
 const progressController = require("../controllers/progressController");
+const pointsController = require("../controllers/pointsController");
 
 router.get("/", userController.readUsers);
 router.post(
@@ -26,7 +27,8 @@ router.put(
 router.put(
 	"/:id/points",
 	userController.checkIfUserExist,
-	userController.updateUserPointsFromId
+	pointsController.checkIfUserIdExist,
+	pointsController.updatePointsByUserId
 );
 
 router.delete(

@@ -15,8 +15,9 @@ async function insertNewUser(data) {
 
 async function selectAllUsers() {
 	const SQLQUERY = `
-        SELECT * FROM User
-        ORDER BY User.user_id;
+		SELECT User.user_id, User.username, User.email, UserPointsRel.points FROM User
+		INNER JOIN UserPointsRel ON User.user_id = UserPointsRel.user_id
+		ORDER BY User.user_id
     `;
 
 	const [header, _] = await pool.query(SQLQUERY);

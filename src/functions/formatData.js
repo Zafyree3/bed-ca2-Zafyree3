@@ -4,9 +4,6 @@ function formatData(data, type) {
 		case "Ability":
 			data.ability_id = +data.ability_id;
 			break;
-		case "User":
-			data.points = +data.points;
-			break;
 		case "Task":
 			data.points = +data.points;
 			break;
@@ -26,6 +23,9 @@ function formatData(data, type) {
 			data.cat_num = +data.cat_num;
 			data.gacha_id = +data.gacha_id;
 			data.chance = +data.chance;
+			break;
+		case "Points":
+			data.points = +data.points;
 			break;
 		default:
 			break;

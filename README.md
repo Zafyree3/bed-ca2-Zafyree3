@@ -124,3 +124,5 @@ A Neko Atsume like game
 ### Attack
 
 - [ ] lure cats from owner
+      _Think from front end side_
+      _Start visualising from table like html_

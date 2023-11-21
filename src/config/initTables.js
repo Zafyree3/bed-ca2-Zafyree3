@@ -12,21 +12,28 @@ DROP TABLE IF EXISTS Item;
 DROP TABLE IF EXISTS ItemOwned;
 DROP TABLE IF EXISTS Gacha;
 DROP TABLE IF EXISTS GachaDrop;
+DROP TABLE IF EXISTS UserPointsRel;
 
 CREATE TABLE User (
     user_id INT PRIMARY KEY AUTO_INCREMENT,
     username TEXT,
-    email TEXT,
-    points INT DEFAULT 0
+    email TEXT
 );
-  
+
+CREATE TABLE UserPointsRel (
+    points_id INT PRIMARY KEY AUTO_INCREMENT,
+    user_id INT NOT NULL,
+    points INT DEFAULT 0,
+    last_updated TIMESTAMP
+);
+
 CREATE TABLE Task (
     task_id INT PRIMARY KEY AUTO_INCREMENT,
     title TEXT,
     description TEXT,
     points INT DEFAULT 0
 );
-  
+
 CREATE TABLE TaskProgress (
     progress_id INT PRIMARY KEY AUTO_INCREMENT,
     task_id INT NOT NULL,
@@ -34,13 +41,13 @@ CREATE TABLE TaskProgress (
     completion_date TIMESTAMP,
     notes TEXT
 );
-  
+
 CREATE TABLE Cat (
     cat_num INT PRIMARY KEY,
     breed TEXT,
     ability_id INT
 );
-  
+
 CREATE TABLE CatOwned (
     cat_id INT PRIMARY KEY AUTO_INCREMENT,
     cat_name TEXT,
@@ -48,7 +55,7 @@ CREATE TABLE CatOwned (
     cat_num INT NOT NULL,
     date_owned TIMESTAMP
 );
-  
+
 CREATE TABLE CatHistory (
     hist_id INT PRIMARY KEY AUTO_INCREMENT,
     owner_id INT NOT NULL,
@@ -56,13 +63,13 @@ CREATE TABLE CatHistory (
     cat_id INT NOT NULL,
     date_occured TIMESTAMP
 );
-  
+
 CREATE TABLE Ability (
     ability_id INT PRIMARY KEY,
     action TEXT,
     description TEXT
 );
-  
+
 CREATE TABLE Item (
     item_num INT PRIMARY KEY,
     name TEXT,
@@ -70,21 +77,21 @@ CREATE TABLE Item (
     description TEXT,
     ability_id INT
 );
-  
+
 CREATE TABLE ItemOwned (
     item_id INT PRIMARY KEY AUTO_INCREMENT,
     owner_id INT NOT NULL,
     item_num INT NOT NULL,
     quantity INT DEFAULT 1
 );
-  
+
 CREATE TABLE Gacha (
     box_id INT PRIMARY KEY,
     name TEXT,
     description TEXT,
     price INT DEFAULT 0
 );
-  
+
 CREATE TABLE GachaDrop (
     drop_id INT PRIMARY KEY AUTO_INCREMENT,
     cat_num INT NOT NULL,
