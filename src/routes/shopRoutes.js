@@ -4,7 +4,7 @@ const router = express.Router();
 const shopController = require("../controllers/shopController.js");
 const userController = require("../controllers/userController.js");
 const inventoryController = require("../controllers/inventoryController.js");
-const collectionController = require("../controllers/collectionController.js");
+const catOwnedController = require("../controllers/catOwnedController.js");
 const dropController = require("../controllers/dropController.js");
 const pointsController = require("../controllers/pointsController.js");
 
@@ -30,7 +30,7 @@ router.post(
 	pointsController.checkIfPointsIsEnuf,
 	pointsController.updatePointsByUserId,
 	dropController.readRandomGachaCatFromGachaId,
-	collectionController.addCatOwned
+	catOwnedController.addCatOwned
 );
 router.use("/items", itemRouter);
 router.use("/gachas", gachaRouter);

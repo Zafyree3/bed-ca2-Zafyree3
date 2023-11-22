@@ -1,16 +1,44 @@
-const CatOwnedModel = require("../models/catOwnedModel");
+const catOwnedModel = require("../models/catOwnedModel");
 const moment = require("moment");
+
+async function addCatOwned(req, res, next) {
+	// TODO: FIX THIS, ALREADY HAVE ANOTHER FUCTIOSN CALLED CREATEDCATOWNED
+	let data = {
+		cat_num: req.body.cat_num,
+		owner_id: req.user.id,
+		cat_name: req.body.cat_name,
+		date_owned: moment(Date.now()).format("YYYY-MM-DD"), // Add the current date time
+	};
+
+	if (res.locals.next) {
+		data = {
+			cat_num: res.locals.data.cat_num,
+			owner_id: res.locals.data.user_id,
+			cat_name: "Cat",
+			date_owned: moment(Date.now()).format("YYYY-MM-DD"), // Add the current date time
+		};
+	}
+
+	const results = await catOwnedModel.insertNewCatOwned(data);
+
+	res.status(201).send({
+		cat_owned_id: results.insertId,
+		...data,
+	});
+
+	next();
+}
 
 async function readCatOwned(req, res, next) {
 	// Read all cats owned
-	let results = await CatOwnedModel.selectAllCatOwned();
+	let results = await catOwnedModel.selectAllCatOwned();
 
 	res.status(200).json(results);
 }
 
 async function readCatOwnedDetails(req, res, next) {
 	// Read all cats owned with cat specific details
-	let results = await CatOwnedModel.selectAllCatOwnedDetail();
+	let results = await catOwnedModel.selectAllCatOwnedDetail();
 
 	res.status(200).json(results);
 }
@@ -21,7 +49,7 @@ async function readCatOwnedDetailsFromId(req, res, next) {
 		cat_id: req.params.id,
 	};
 
-	let results = await CatOwnedModel.selectAllCatOwnedDetailById(data);
+	let results = await catOwnedModel.selectAllCatOwnedDetailById(data);
 
 	res.status(200).json(results[0]);
 }
@@ -33,7 +61,7 @@ async function readCatOwnedDetailsFromOwnerId(req, res, next) {
 		owner_id: req.params.id,
 	};
 
-	let results = await CatOwnedModel.selectAllCatOwnedDetailByOwnerId(data);
+	let results = await catOwnedModel.selectAllCatOwnedDetailByOwnerId(data);
 
 	res.status(200).json(results);
 }
@@ -60,7 +88,7 @@ async function createCatOwned(req, res, next) {
 		date_owned: moment(Date.now()).format("YYYY-MM-DD"), // Add the current date time
 	};
 
-	let results = await CatOwnedModel.insertNewCatOwned(data);
+	let results = await catOwnedModel.insertNewCatOwned(data);
 
 	if (results.errno != undefined) {
 		// If there is an error, display it
@@ -95,7 +123,7 @@ async function updateCatOwnedFromId(req, res, next) {
 		return;
 	}
 
-	let ownedData = await CatOwnedModel.selectCatOwnedById({
+	let ownedData = await catOwnedModel.selectCatOwnedById({
 		cat_id: req.params.id,
 	});
 
@@ -153,7 +181,7 @@ async function updateCatOwnedFromId(req, res, next) {
 		return;
 	}
 
-	const results = await CatOwnedModel.updateCatOwnedById(ownedData);
+	const results = await catOwnedModel.updateCatOwnedById(ownedData);
 
 	if (results.affectedRows == 0) {
 		// Checks whether the rows is affects
@@ -171,7 +199,7 @@ async function deleteCatOwnedFromId(req, res, next) {
 		cat_id: req.params.id,
 	};
 
-	const results = await CatOwnedModel.deleteCatOwnedById(data)[0];
+	const results = await catOwnedModel.deleteCatOwnedById(data)[0];
 
 	if (results.affectedRows == 0) {
 		res.status(409).json({
@@ -185,7 +213,7 @@ async function deleteCatOwnedFromId(req, res, next) {
 
 async function checkIfCatOwnedExist(req, res, next) {
 	// Checks if the cat owned exist
-	const ownedData = await CatOwnedModel.selectAllCatOwned();
+	const ownedData = await catOwnedModel.selectAllCatOwned();
 
 	const data = {
 		cat_id: req.params.id,
@@ -202,6 +230,7 @@ async function checkIfCatOwnedExist(req, res, next) {
 }
 
 module.exports = {
+	addCatOwned,
 	readCatOwned,
 	readCatOwnedDetails,
 	readCatOwnedDetailsFromId,

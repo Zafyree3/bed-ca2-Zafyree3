@@ -108,7 +108,7 @@ async function deleteUserPointsRelByUserId(data) {
 	return header;
 }
 
-module.exportsres = {
+module.exports = {
 	insertNewUserPointRel,
 	selectAllUserPointsRel,
 	selectUserPointsRelById,

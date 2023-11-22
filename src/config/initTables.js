@@ -4,15 +4,17 @@ const SQLQUERY = `
 DROP TABLE IF EXISTS User;
 DROP TABLE IF EXISTS Task;
 DROP TABLE IF EXISTS TaskProgress;
+DROP TABLE IF EXISTS UserPointsRel;
 DROP TABLE IF EXISTS Cat;
 DROP TABLE IF EXISTS CatOwned;
 DROP TABLE IF EXISTS CatHistory;
+DROP TABLE IF EXISTS Backyard;
+DROP TABLE IF EXISTS BackyardCatRel;
 DROP TABLE IF EXISTS Ability;
 DROP TABLE IF EXISTS Item;
 DROP TABLE IF EXISTS ItemOwned;
 DROP TABLE IF EXISTS Gacha;
 DROP TABLE IF EXISTS GachaDrop;
-DROP TABLE IF EXISTS UserPointsRel;
 
 CREATE TABLE User (
     user_id INT PRIMARY KEY AUTO_INCREMENT,
@@ -40,6 +42,19 @@ CREATE TABLE TaskProgress (
     user_id INT NOT NULL,
     completion_date TIMESTAMP,
     notes TEXT
+);
+
+CREATE TABLE Backyard (
+    backyard_id INT PRIMARY KEY AUTO_INCREMENT,
+    user_id INT NOT NULL,
+    name TEXT
+);
+
+CREATE TABLE BackyardCatRel (
+    backyard_cat_id INT PRIMARY KEY AUTO_INCREMENT,
+    backyard_id INT NOT NULL,
+    cat_id INT NOT NULL,
+    date_added TIMESTAMP
 );
 
 CREATE TABLE Cat (

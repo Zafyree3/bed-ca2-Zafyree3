@@ -8,6 +8,7 @@ async function insertAllData(
 	insertDataFunc,
 	selectAllFunc
 ) {
+	console.log(insertDataFunc);
 	for (let i = 0; i < dataList.length; i++) {
 		await loadData(dataList[i], type, insertDataFunc);
 	}
