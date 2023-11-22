@@ -11,6 +11,10 @@ function formatData(data, type) {
 			data.cat_num = +data.cat_num;
 			data.ability_id = +data.ability_id;
 			break;
+		case "Owned":
+			data.cat_num = +data.cat_num;
+			data.owner_id = +data.owner_id;
+			break;
 		case "Item":
 			data.price = +data.price;
 			data.ability_id = +data.ability_id;
