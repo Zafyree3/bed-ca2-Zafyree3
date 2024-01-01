@@ -7,7 +7,7 @@ async function readUsers(req, res, next) {
 }
 
 async function createUser(req, res, next) {
-	if (req.body.username == undefined || req.body.username == undefined) {
+	if (req.body.username == undefined || req.body.email == undefined) {
 		// Checks that required data is there
 		res.status(400).json({
 			error: "Please ensure the request body contains an username and email",
