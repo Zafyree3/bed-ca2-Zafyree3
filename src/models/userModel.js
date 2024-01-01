@@ -16,7 +16,7 @@ async function insertNewUser(data) {
 async function selectAllUsers() {
 	const SQLQUERY = `
 		SELECT User.user_id, User.username, User.email, UserPointsRel.points FROM User
-		INNER JOIN UserPointsRel ON User.user_id = UserPointsRel.user_id
+		LEFT JOIN UserPointsRel ON User.user_id = UserPointsRel.user_id
 		ORDER BY User.user_id
     `;
 
