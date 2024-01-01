@@ -23,7 +23,7 @@ async function createBackyard(req, res, next) {
 	});
 }
 
-async function readBackyard(req, res, next) {
+async function readBackyards(req, res, next) {
 	// Read all backyards
 	let results = await backyardModel.selectAllBackyard();
 
@@ -132,7 +132,7 @@ async function deleteBackyardFromUserId(req, res, next) {
 
 module.exports = {
 	createBackyard,
-	readBackyard,
+	readBackyards,
 	readBackyardFromId,
 	readBackyardFromUserId,
 	updateBackyardFromId,

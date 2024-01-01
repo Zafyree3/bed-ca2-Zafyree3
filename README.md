@@ -43,9 +43,9 @@ A Neko Atsume like game
 - [x] update user by id
 - [x] delete user by id
 
-- [ ] add new cats to display
-- [ ] remove cats from display
-- [ ] read cats in their fields
+- [x] add new cats to display
+- [x] remove cats from display
+- [x] read cats in their fields
 
 ### Tasks
 
