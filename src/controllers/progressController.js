@@ -1,4 +1,6 @@
 const progressModel = require("../models/progressModel");
+const userModel = require("../models/userModel");
+const taskModel = require("../models/taskModel");
 
 async function deleteProgressFromUserId(req, res, next) {
 	const data = {
@@ -21,10 +23,37 @@ async function deleteProgressFromTaskId(req, res, next) {
 }
 
 async function createProgress(req, res, next) {
-	if (req.body.user_id == undefined || req.body.task_id == undefined) {
+	if (
+		req.body.user_id == undefined ||
+		req.body.task_id == undefined ||
+		req.body.completion_date == undefined ||
+		req.body.notes == undefined
+	) {
 		res.status(400).json({
 			error:
-				"Please ensure that the request body contains an user_id and task_id",
+				"Please ensure that the request body contains an user_id, task_id, completion_date and notes",
+		});
+		return;
+	}
+
+	const userData = await userModel.selectUserById({
+		user_id: req.body.user_id,
+	});
+
+	if (userData.length == 0) {
+		res.status(404).json({
+			error: `Cannot find user with id ${req.body.user_id}`,
+		});
+		return;
+	}
+
+	const taskData = await taskModel.selectTaskById({
+		task_id: req.body.task_id,
+	});
+
+	if (taskData.length == 0) {
+		res.status(404).json({
+			error: `Cannot find task with id ${req.body.task_id}`,
 		});
 		return;
 	}

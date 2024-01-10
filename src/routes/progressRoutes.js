@@ -15,7 +15,7 @@ router.put(
 	progressController.checkIfProgressExist,
 	progressController.updateProgressFromId
 );
-router.put(
+router.delete(
 	"/:id",
 	progressController.checkIfProgressExist,
 	progressController.deleteProgressFromId

@@ -33,6 +33,8 @@ A Neko Atsume like game
    - Chance to lure can be increase by items and cats
    - Chance to lure can also be decrease by items and cats
 
+## API Documentation
+
 ## Roadmap
 
 ### Users
