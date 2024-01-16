@@ -16,7 +16,8 @@
 		"loadCatOwned": "node src/config/preInsertCatOwned.js",
 		"loadAbilities": "node src/config/preInsertAbilities.js",
 		"loadPoints": "node src/config/preInsertPoints.js",
-		"initData": "npm run init && npm run loadTasks && npm run loadUsers && npm run loadItems && npm run loadGachas && npm run loadDrops && npm run loadCats && npm run loadAbilities && npm run loadPoints"
+		"initData": "npm run init && npm run loadTasks && npm run loadUsers && npm run loadItems && npm run loadGachas && npm run loadDrops && npm run loadCats && npm run loadAbilities && npm run loadPoints && npm run loadCatOwned",
+		"test": "npm run initData && jest --forceExit"
 	},
 	"author": "Irman Zafyree",
 	"license": "ISC",

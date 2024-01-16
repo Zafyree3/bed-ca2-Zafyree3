@@ -104,6 +104,7 @@ async function createCatOwned(req, res, next) {
 
 	res.status(201).json({
 		...data,
+		cat_id: results.insertId,
 	});
 }
 
@@ -145,41 +146,55 @@ async function updateCatOwnedFromId(req, res, next) {
 		ownedData.date_owned = req.body.date_owned;
 	}
 
-	const DATEFROMATREGEX = /\d{4}\/\d{2}\/\d{2}/; // This regex check for 4 digits, /, 2 digits, / 2 digits
-	const formatRegex = new RegExp(DATEFROMATREGEX);
+	const newTimestamp = new Date(ownedData.date_owned).getTime();
 
-	// Process the date, checks if follows the format
-	if (!formatRegex.test(ownedData.date_owned)) {
+	function isNumeric(n) {
+		return !isNaN(parseFloat(n)) && isFinite(n);
+	}
+
+	if (!isNumeric(newTimestamp)) {
 		res.status(400).json({
-			error: "Please ensure the date_owned follows a format YYYY/MM/DD",
+			error:
+				"Please ensure the date_owned follows a format YYYY-MM-DD HH:MM:SS",
 		});
 		return;
 	}
 
-	// Checks if the values is correct
-	const CAPTUREREGEX = /(\d{4})\/(\d{2})\/(\d{2})/;
-	let match = ownedData.date_owned.match(CAPTUREREGEX);
-	/// match[1] = year, match[2] = month, match[3] = date
-	if (parseInt(match[2]) > 12 || parseInt(match[2]) < 0) {
-		// Checks that the months is < 12 and > 0
-		res.status(400).json({
-			error: "Please ensure the the months is from 01 - 12",
-		});
-		return;
-	}
+	// const DATEFROMATREGEX = /\d{4}\/\d{2}\/\d{2}/; // This regex check for 4 digits, /, 2 digits, / 2 digits
+	// const formatRegex = new RegExp(DATEFROMATREGEX);
 
-	let daysInMonth = new Date(
-		parseInt(match[1]),
-		parseInt(match[2]),
-		0
-	).getDate();
+	// // Process the date, checks if follows the format
+	// if (!formatRegex.test(ownedData.date_owned)) {
+	// 	res.status(400).json({
+	// 		error: "Please ensure the date_owned follows a format YYYY/MM/DD",
+	// 	});
+	// 	return;
+	// }
 
-	if (parseInt(match[3]) < 1 || parseInt(match[3]) > daysInMonth) {
-		res.status(400).json({
-			error: " Please ensure that the numbers of days is correct",
-		});
-		return;
-	}
+	// // Checks if the values is correct
+	// const CAPTUREREGEX = /(\d{4})\/(\d{2})\/(\d{2})/;
+	// let match = ownedData.date_owned.match(CAPTUREREGEX);
+	// /// match[1] = year, match[2] = month, match[3] = date
+	// if (parseInt(match[2]) > 12 || parseInt(match[2]) < 0) {
+	// 	// Checks that the months is < 12 and > 0
+	// 	res.status(400).json({
+	// 		error: "Please ensure the the months is from 01 - 12",
+	// 	});
+	// 	return;
+	// }
+
+	// let daysInMonth = new Date(
+	// 	parseInt(match[1]),
+	// 	parseInt(match[2]),
+	// 	0
+	// ).getDate();
+
+	// if (parseInt(match[3]) < 1 || parseInt(match[3]) > daysInMonth) {
+	// 	res.status(400).json({
+	// 		error: " Please ensure that the numbers of days is correct",
+	// 	});
+	// 	return;
+	// }
 
 	const results = await catOwnedModel.updateCatOwnedById(ownedData);
 
@@ -199,7 +214,7 @@ async function deleteCatOwnedFromId(req, res, next) {
 		cat_id: req.params.id,
 	};
 
-	const results = await catOwnedModel.deleteCatOwnedById(data)[0];
+	const results = await catOwnedModel.deleteCatOwnedById(data);
 
 	if (results.affectedRows == 0) {
 		res.status(409).json({

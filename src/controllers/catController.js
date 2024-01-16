@@ -122,6 +122,7 @@ async function checkIfCatExist(req, res, next) {
 	if (catData.findIndex((cat) => cat.cat_num == data.cat_num) == -1) {
 		// Loops thru all the data and checks whether there is NOT a cat_num
 		res.status(404).json({ error: `Cannot find cat with id ${data.cat_num}` });
+		return;
 	}
 
 	next();

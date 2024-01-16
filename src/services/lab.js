@@ -1,7 +1,7 @@
 // This is a testing script to test different things
 
 // ------------ Testing how to select columns from VALUES ------------
-const db = require("../services/db");
+const db = require("./db");
 
 async function selectAllCatOwnedMod() {
 	const SQLQUERY = `

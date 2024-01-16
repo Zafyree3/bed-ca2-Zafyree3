@@ -27,7 +27,7 @@ async function readAbilityFromId(req, res, next) {
 		return;
 	}
 
-	res.status(200).json(results);
+	res.status(200).json(results[0]);
 }
 
 async function createAbility(req, res, next) {
@@ -137,7 +137,7 @@ async function checkIfAbilityExist(req, res, next) {
 	) {
 		res
 			.status(404)
-			.json({ error: `Cannot find ability with id: ${daa.ability_id}` });
+			.json({ error: `Cannot find ability with id: ${data.ability_id}` });
 		return;
 	}
 

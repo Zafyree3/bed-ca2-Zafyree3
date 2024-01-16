@@ -36,6 +36,8 @@ async function createProgress(req, res, next) {
 		return;
 	}
 
+	//console.log(req.body);
+
 	const userData = await userModel.selectUserById({
 		user_id: req.body.user_id,
 	});
