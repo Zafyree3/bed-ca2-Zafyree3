@@ -31,6 +31,9 @@ function formatData(data, type) {
 		case "Points":
 			data.points = +data.points;
 			break;
+		case "Messages":
+			data.user_id = +data.user_id;
+			break;
 		default:
 			break;
 	}

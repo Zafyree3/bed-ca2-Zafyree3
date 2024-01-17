@@ -25,6 +25,19 @@ async function selectAllUsers() {
 	return header;
 }
 
+async function selectUserByUsername(data) {
+	const SQLQUERY = `
+		SELECT * FROM User
+		WHERE username = ?;
+	`;
+
+	const VALUES = [data.username];
+
+	const [header, _] = await pool.query(SQLQUERY, VALUES);
+
+	return header;
+}
+
 async function selectUserById(data) {
 	const SQLQUERY = `
         SELECT * FROM User
@@ -88,4 +101,5 @@ module.exports = {
 	updateUserById,
 	deleteUserById,
 	updateUserPointsById,
+	selectUserByUsername,
 };

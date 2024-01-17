@@ -6,6 +6,59 @@ async function readUsers(req, res, next) {
 	res.status(200).json(results);
 }
 
+async function loginUser(req, res, next) {
+	if (req.body.username == undefined || req.body.password == undefined) {
+		// Checks that required data is there
+		res.status(400).json({
+			error: "Please ensure the request body contains an username and password",
+		});
+		return;
+	}
+
+	const data = {
+		username: req.body.username,
+		password: req.body.password,
+	};
+
+	const results = await userModel.selectUserByUsername(data);
+
+	if (results.length == 0) {
+		res.status(404).json({ error: "User not found" });
+		return;
+	}
+
+	res.locals.userId = results[0].id;
+	res.locals.hash = results[0].password;
+
+	next();
+}
+
+async function registerUser(req, res, next) {
+	if (
+		req.body.username == undefined ||
+		req.body.email == undefined ||
+		req.body.password == undefined
+	) {
+		// Checks that required data is there
+		res.status(400).json({
+			error: "Please ensure the request body contains an username and email",
+		});
+		return;
+	}
+
+	const data = {
+		email: req.body.email,
+		username: req.body.username,
+		password: res.locals.hash,
+	};
+
+	const results = await userModel.insertNewUser(data);
+
+	res.locals.id = results.insertId;
+	res.locals.message = `User ${req.body.username} created successfully`;
+	next();
+}
+
 async function createUser(req, res, next) {
 	// The password here will be unhashed
 	if (
@@ -178,4 +231,6 @@ module.exports = {
 	checkIfUsernameIsUsed,
 	checkIfPointsIsEnuf,
 	updateUserPointsFromId,
+	registerUser,
+	loginUser,
 };

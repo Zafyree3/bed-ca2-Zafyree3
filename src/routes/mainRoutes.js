@@ -9,6 +9,7 @@ const catRouter = require("./catRoutes");
 const catOwnedRouter = require("./catOwnedRoutes");
 const abilityRouter = require("./abilityRoutes");
 const backyardRouter = require("./backyardRoutes");
+const messagesRouter = require("./messagesRoutes");
 
 router.use("/users", userRoutes);
 router.use("/tasks", tasksRouter);
@@ -18,10 +19,30 @@ router.use("/cats", catRouter);
 router.use("/owned", catOwnedRouter);
 router.use("/ability", abilityRouter);
 router.use("/backyard", backyardRouter);
+router.use("/messages", messagesRouter);
 
 const tokenController = require("../controllers/tokenController");
+const userController = require("../controllers/userController");
 const jwtMiddleware = require("../middlewares/jwtMiddleware");
 const bcryptMiddleware = require("../middlewares/bcryptMiddleware");
+
+router.post(
+	"/register",
+	userController.checkIfEmailIsUsed,
+	userController.checkIfUsernameIsUsed,
+	bcryptMiddleware.hashPassword,
+	userController.registerUser,
+	jwtMiddleware.generateToken,
+	jwtMiddleware.sendToken
+);
+
+router.post(
+	"/login",
+	userController.loginUser,
+	bcryptMiddleware.comparePassword,
+	jwtMiddleware.generateToken,
+	jwtMiddleware.sendToken
+);
 
 router.post(
 	"/jwt/generate",
