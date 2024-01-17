@@ -19,7 +19,8 @@ DROP TABLE IF EXISTS GachaDrop;
 CREATE TABLE User (
     user_id INT PRIMARY KEY AUTO_INCREMENT,
     username TEXT,
-    email TEXT
+    email TEXT,
+    password TEXT
 );
 
 CREATE TABLE UserPointsRel (

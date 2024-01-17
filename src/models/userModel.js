@@ -2,11 +2,11 @@ const pool = require("../services/db");
 
 async function insertNewUser(data) {
 	const SQLQUERY = `
-        INSERT INTO User (username, email)
-        VALUES (?, ?);
+        INSERT INTO User (username, email, password)
+        VALUES (?, ?, ?);
     `;
 
-	const VALUES = [data.username, data.email];
+	const VALUES = [data.username, data.email, data.password];
 
 	const [header, _] = await pool.query(SQLQUERY, VALUES);
 

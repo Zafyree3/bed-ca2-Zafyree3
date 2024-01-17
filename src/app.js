@@ -9,7 +9,9 @@ app.use((req, res, next) => {
 	next();
 });
 
+app.use("/", express.static("public"));
+
 const mainRoutes = require("./routes/mainRoutes");
-app.use("/", mainRoutes);
+app.use("/api", mainRoutes);
 
 module.exports = app;

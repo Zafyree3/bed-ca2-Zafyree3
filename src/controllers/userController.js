@@ -7,7 +7,12 @@ async function readUsers(req, res, next) {
 }
 
 async function createUser(req, res, next) {
-	if (req.body.username == undefined || req.body.email == undefined) {
+	// The password here will be unhashed
+	if (
+		req.body.username == undefined ||
+		req.body.email == undefined ||
+		req.body.password == undefined
+	) {
 		// Checks that required data is there
 		res.status(400).json({
 			error: "Please ensure the request body contains an username and email",
@@ -18,6 +23,7 @@ async function createUser(req, res, next) {
 	const data = {
 		email: req.body.email,
 		username: req.body.username,
+		password: req.body.password,
 	};
 
 	const results = await userModel.insertNewUser(data);

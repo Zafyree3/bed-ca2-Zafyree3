@@ -19,8 +19,32 @@ router.use("/owned", catOwnedRouter);
 router.use("/ability", abilityRouter);
 router.use("/backyard", backyardRouter);
 
-router.use("/", (req, res, next) => {
-	res.status(200).send("The server is live!");
-});
+const tokenController = require("../controllers/tokenController");
+const jwtMiddleware = require("../middlewares/jwtMiddleware");
+const bcryptMiddleware = require("../middlewares/bcryptMiddleware");
+
+router.post(
+	"/jwt/generate",
+	tokenController.preTokenGenerate,
+	jwtMiddleware.generateToken,
+	tokenController.beforeSendToken,
+	jwtMiddleware.sendToken
+);
+router.get(
+	"/jwt/verify",
+	jwtMiddleware.verifyToken,
+	tokenController.showTokenVerified
+);
+router.post(
+	"/bcrypt/compare",
+	tokenController.preCompare,
+	bcryptMiddleware.comparePassword,
+	tokenController.showCompareSuccess
+);
+router.post(
+	"/bcrypt/hash",
+	bcryptMiddleware.hashPassword,
+	tokenController.showHashing
+);
 
 module.exports = router;
