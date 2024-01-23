@@ -5,17 +5,12 @@ async function createMessage(req, res, next) {
 	if (req.body.message_text == undefined || req.body.message_text == "") {
 		res.status(400).send("Error: message_text is undefined");
 		return;
-	} else if (req.body.user_id == undefined) {
-		res.status(400).send("Error: user_id is undefined");
-		return;
 	}
 
 	const data = {
-		user_id: req.body.user_id,
+		user_id: req.body.user_id || res.locals.userId,
 		message_text: req.body.message_text,
 	};
-
-	//console.log("data", data);
 
 	const results = await model.insertSingle(data);
 
@@ -37,7 +32,7 @@ async function readMessageById(req, res, next) {
 }
 
 async function readAllMessage(req, res, next) {
-	const results = await model.selectAll();
+	const results = await model.selectAll({ user_id: res.locals.userId });
 
 	res.status(200).json(results);
 }

@@ -1,12 +1,16 @@
 const pool = require("../services/db");
 
 //module.exports.selectAll = (callback) => {
-async function selectAll(callback) {
+async function selectAll(data, callback) {
 	const SQLSTATMENT = `
-    SELECT * FROM Messages;
-    `;
+    SELECT Messages.id, Messages.message_text, user.user_id, user.username, messages.created_at , IF(User.user_id = ?,TRUE,FALSE) AS own_message FROM Messages
+	LEFT JOIN USER ON Messages.user_id = User.user_id
+	ORDER BY Messages.created_at
+	`;
 
-	const [header, _] = await pool.query(SQLSTATMENT, callback);
+	const [VALUES] = [data.user_id];
+
+	const [header, _] = await pool.query(SQLSTATMENT, VALUES, callback);
 
 	return header;
 }

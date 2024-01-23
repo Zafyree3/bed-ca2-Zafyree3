@@ -1,3 +1,9 @@
+:root {
+	--primary: 143, 42, 245;
+	--secondary: 42, 245, 109;
+	--tertiary: 245, 163, 41;
+}
+
 html {
 	height: 100vh;
 }
@@ -23,4 +29,23 @@ html {
 .form-signin {
 	max-width: 330px;
 	padding: 1rem;
+}
+
+/* Message Page */
+#message-main {
+	display: grid;
+	grid-template-rows: 1fr 10fr 1fr;
+	gap: 1rem;
+	height: 100%;
+}
+#message-container {
+	height: 100%;
+}
+
+.message {
+	background-color: rgba(var(--primary), 0.5);
+}
+
+.message[data-own_message="1"] {
+	background-color: rgba(var(--tertiary), 0.5);
 }
