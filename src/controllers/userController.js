@@ -6,6 +6,39 @@ async function readUsers(req, res, next) {
 	res.status(200).json(results);
 }
 
+async function readUserProfile(req, res, next) {
+	console.log(res.locals.userId);
+
+	const results = await userModel.selectUserById({
+		user_id: res.locals.userId,
+	});
+
+	console.log(results);
+
+	res.locals.username = results[0].username;
+	res.locals.email = results[0].email;
+
+	next();
+}
+
+async function readUserPoints(req, res, next) {
+	const results = await userModel.selectPointsByUser({
+		user_id: res.locals.userId,
+	});
+
+	res.locals.points = results[0].points;
+
+	next();
+}
+
+async function sendUserProfile(req, res, next) {
+	res.status(200).json({
+		username: res.locals.username,
+		email: res.locals.email,
+		points: res.locals.points,
+	});
+}
+
 async function loginUser(req, res, next) {
 	if (req.body.username == undefined || req.body.password == undefined) {
 		// Checks that required data is there
@@ -27,7 +60,7 @@ async function loginUser(req, res, next) {
 		return;
 	}
 
-	res.locals.userId = results[0].id;
+	res.locals.userId = results[0].user_id;
 	res.locals.hash = results[0].password;
 
 	next();
@@ -233,4 +266,7 @@ module.exports = {
 	updateUserPointsFromId,
 	registerUser,
 	loginUser,
+	readUserProfile,
+	readUserPoints,
+	sendUserProfile,
 };

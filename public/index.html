@@ -16,28 +16,15 @@
 		<title>Landing</title>
 
 		<script src="components/footer.js" type="text/javascript" defer></script>
+		<script src="components/navBar.js" type="text/javascript" defer></script>
 	</head>
 	<body class="d-flex h-100 text-center text-bg-dark">
 		<div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
-			<header class="mb-auto">
-				<div>
-					<h3 class="float-md-start mb-0">Kawaii Kittens</h3>
-					<nav
-						class="nav nav-masthead justify-content-center float-md-end gap-5"
-					>
-						<a class="nav-link fw-bold py-1 px-0 text-white" href="login.html"
-							>Login</a
-						>
-						<a
-							class="nav-link fw-bold py-1 px-3 text-black bg-white rounded-2 btn-light"
-							href="register.html"
-							>Register</a
-						>
-					</nav>
-				</div>
-			</header>
+			<nav-bar class="justify-content-center float-md-en w-100"></nav-bar>
 
-			<main class="px-3 w-50 mx-auto">
+			<main
+				class="px-3 w-50 mx-auto flex-grow-1 d-flex justify-content-center align-items-center flex-column"
+			>
 				<h1>WELCOME!</h1>
 				<p class="lead">
 					This is a simple cat collecting game made by <b>Irman Zafyree</b> from
@@ -48,12 +35,13 @@
 						>Interested in playing? Register now!</span
 					>
 				</p>
-				<p class="lead">
+				<p class="lead d-flex flex-column">
 					<a
 						href="register.html"
 						class="btn btn-lg btn-light fw-bold border-white bg-white"
 						>Register</a
 					>
+					<a href="login.html" class="btn fw-bold">Login</a>
 				</p>
 			</main>
 

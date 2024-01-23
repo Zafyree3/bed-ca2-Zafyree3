@@ -40,9 +40,22 @@ async function selectUserByUsername(data) {
 
 async function selectUserById(data) {
 	const SQLQUERY = `
-        SELECT * FROM User
+        SELECT user_id, username, email FROM User
         WHERE user_id = ?;
     `;
+
+	const VALUES = [data.user_id];
+
+	const [header, _] = await pool.query(SQLQUERY, VALUES);
+
+	return header;
+}
+
+async function selectPointsByUser(data) {
+	const SQLQUERY = `
+	SELECT points, last_updated FROM UserPointsRel
+	WHERE user_id = ?;
+	`;
 
 	const VALUES = [data.user_id];
 
@@ -102,4 +115,5 @@ module.exports = {
 	deleteUserById,
 	updateUserPointsById,
 	selectUserByUsername,
+	selectPointsByUser,
 };

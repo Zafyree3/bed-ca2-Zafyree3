@@ -4,6 +4,7 @@ const router = express.Router();
 const userController = require("../controllers/userController");
 const progressController = require("../controllers/progressController");
 const pointsController = require("../controllers/pointsController");
+const jwtMiddleware = require("../middlewares/jwtMiddleware");
 
 router.get("/", userController.readUsers);
 router.post(
@@ -12,6 +13,15 @@ router.post(
 	userController.checkIfUsernameIsUsed,
 	userController.createUser
 );
+
+router.get(
+	"/profile",
+	jwtMiddleware.verifyToken,
+	userController.readUserProfile,
+	userController.readUserPoints,
+	userController.sendUserProfile
+);
+
 router.get(
 	"/:id",
 	userController.checkIfUserExist,
