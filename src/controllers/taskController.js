@@ -6,6 +6,16 @@ async function readTasks(req, res, next) {
 	res.status(200).json(results);
 }
 
+async function readTasksFromUserId(req, res, next) {
+	const data = {
+		user_id: req.params.id || res.locals.userId,
+	};
+
+	const results = await taskModel.selectTasksByUserId(data);
+
+	res.status(200).json(results);
+}
+
 async function createTask(req, res, next) {
 	if (
 		req.body.title == undefined ||
@@ -104,4 +114,5 @@ module.exports = {
 	updateTaskFromId,
 	deleteTaskFromId,
 	checkIfTaskExist,
+	readTasksFromUserId,
 };

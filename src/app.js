@@ -6,6 +6,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use((req, res, next) => {
 	res.locals.next = false;
+	res.locals.verification = true;
 	next();
 });
 

@@ -24,7 +24,6 @@ async function deleteProgressFromTaskId(req, res, next) {
 
 async function createProgress(req, res, next) {
 	if (
-		req.body.user_id == undefined ||
 		req.body.task_id == undefined ||
 		req.body.completion_date == undefined ||
 		req.body.notes == undefined
@@ -39,12 +38,14 @@ async function createProgress(req, res, next) {
 	//console.log(req.body);
 
 	const userData = await userModel.selectUserById({
-		user_id: req.body.user_id,
+		user_id: req.body.user_id || res.locals.userId,
 	});
 
 	if (userData.length == 0) {
 		res.status(404).json({
-			error: `Cannot find user with id ${req.body.user_id}`,
+			error: `Cannot find user with id ${
+				req.body.user_id || res.locals.userId
+			}`,
 		});
 		return;
 	}
@@ -62,7 +63,7 @@ async function createProgress(req, res, next) {
 
 	const data = {
 		task_id: req.body.task_id,
-		user_id: req.body.user_id,
+		user_id: req.body.user_id || res.locals.userId,
 		completion_date: req.body.completion_date,
 		notes: req.body.notes,
 	};
@@ -93,7 +94,7 @@ async function readProgressFromId(req, res, next) {
 
 async function readProgressFromUserId(req, res, next) {
 	const data = {
-		user_id: req.params.id,
+		user_id: req.params.id || res.locals.userId,
 	};
 
 	const results = await progressModel.selectTaskProgressByUserId(data);

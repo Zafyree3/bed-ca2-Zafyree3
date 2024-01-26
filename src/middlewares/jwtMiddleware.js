@@ -18,6 +18,16 @@ const tokenAlgorithm = process.env.JWT_ALGORITHM;
 //////////////////////////////////////////////////////
 // MIDDLEWARE FUNCTION FOR GENERATING JWT TOKEN
 //////////////////////////////////////////////////////
+
+module.exports.handleNoToken = (req, res, next) => {
+	if (req.headers.authorization == undefined) {
+		res.locals.verification = false;
+		res.locals.userId = 0;
+	}
+
+	next();
+};
+
 module.exports.generateToken = (req, res, next) => {
 	const payload = {
 		userId: res.locals.userId,
@@ -56,6 +66,11 @@ module.exports.sendToken = (req, res, next) => {
 // MIDDLEWARE FUNCTION FOR VERIFYING JWT TOKEN
 //////////////////////////////////////////////////////
 module.exports.verifyToken = (req, res, next) => {
+	if (!res.locals.verification) {
+		next();
+		return;
+	}
+
 	const authHeader = req.headers.authorization;
 
 	if (!authHeader || !authHeader.startsWith("Bearer ")) {

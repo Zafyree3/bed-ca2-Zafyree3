@@ -3,9 +3,16 @@ const router = express.Router();
 
 const taskController = require("../controllers/taskController");
 const progressController = require("../controllers/progressController");
+const jwtMiddleware = require("../middlewares/jwtMiddleware");
 
 router.get("/", taskController.readTasks);
 router.post("/", taskController.createTask);
+router.get(
+	"/user",
+	jwtMiddleware.handleNoToken,
+	jwtMiddleware.verifyToken,
+	taskController.readTasksFromUserId
+);
 router.get(
 	"/:id",
 	taskController.checkIfTaskExist,

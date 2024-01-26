@@ -3,6 +3,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
 	if (token) {
 		loadMessage(token);
+	} else {
+		loadMessage(null);
 	}
 });
 

@@ -4,7 +4,12 @@ const router = express.Router();
 const controller = require("../controllers/messagesController.js");
 const jwtMiddleware = require("../middlewares/jwtMiddleware");
 
-router.get("/", jwtMiddleware.verifyToken, controller.readAllMessage);
+router.get(
+	"/",
+	jwtMiddleware.handleNoToken,
+	jwtMiddleware.verifyToken,
+	controller.readAllMessage
+);
 router.post("/", jwtMiddleware.verifyToken, controller.createMessage);
 router.get("/:id", controller.readMessageById);
 router.put("/:id", controller.updateMessageById);

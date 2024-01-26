@@ -14,6 +14,20 @@ async function insertNewTask(data) {
 	return header;
 }
 
+async function selectTasksByUserId(data) {
+	const SQLQUERY = `
+		SELECT t.title, t.task_id, t.description, t.points, IF(tp.user_id IS NOT NULL, 1, 0) as completed FROM Task as t
+		LEFT JOIN TaskProgress tp on t.task_id = tp.task_id
+		WHERE tp.user_id = ? or tp.user_id IS NULL
+	`;
+
+	const VALUES = [data.user_id];
+
+	const [header, _] = await pool.query(SQLQUERY, VALUES);
+
+	return header;
+}
+
 async function selectAllTasks() {
 	const SQLQUERY = `
         SELECT * FROM Task
@@ -72,5 +86,6 @@ module.exports = {
 	selectAllTasks,
 	selectTaskById,
 	updateTaskById,
+	selectTasksByUserId,
 	deleteTaskById,
 };

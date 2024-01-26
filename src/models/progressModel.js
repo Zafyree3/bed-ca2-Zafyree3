@@ -29,6 +29,7 @@ async function selectTaskProgressById(data) {
 async function selectTaskProgressByUserId(data) {
 	const SQLQUERY = `
 		SELECT * FROM TaskProgress
+		LEFT JOIN Task ON TaskProgress.task_id = Task.task_id
 		WHERE user_id = ?;
 	`;
 
