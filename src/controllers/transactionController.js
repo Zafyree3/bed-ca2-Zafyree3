@@ -20,13 +20,26 @@ async function readTransactionsByUserId(req, res, next) {
 
 async function createTransaction(req, res, next) {
 	// Create transaction
-	const data = {
+	let data = {
 		user_id: req.body.user_id || res.locals.userId,
 		points: req.body.points || res.locals.points,
 		points_change: req.body.points_change,
 	};
 
+	if (res.locals.next) {
+		data = {
+			user_id: res.locals.userId,
+			points: res.locals.data.userPoints,
+			points_change: res.locals.data.price * -1,
+		};
+	}
+
 	const results = await transactionModel.insertSingle(data);
+
+	if (res.locals.next) {
+		next();
+		return;
+	}
 
 	res.status(200).json(results);
 }

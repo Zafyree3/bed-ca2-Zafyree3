@@ -135,11 +135,15 @@ async function updatePointsByUserId(req, res, next) {
 	if (res.locals.next) {
 		data = {
 			user_id: res.locals.data.user_id,
-			points: res.locals.data.points,
+			points: res.locals.data.userPoints,
 		};
 
 		data.points = data.points - res.locals.data.price;
 	}
+
+	res.locals.data.userPoints = data.points;
+
+	console.log(data);
 
 	const results = await pointsModel.updatePointsByUserId(data);
 
@@ -245,8 +249,8 @@ async function checkIfUserIdExist(req, res, next) {
 }
 
 async function checkIfPointsIsEnuf(req, res, next) {
-	const data = {
-		user_id: req.params.id,
+	let data = {
+		user_id: req.params.id || res.locals.userId,
 	};
 
 	if (res.locals.next) {
@@ -255,7 +259,9 @@ async function checkIfPointsIsEnuf(req, res, next) {
 		};
 	}
 
-	const pointsData = await pointsModel.selectAllUserPointsRelByUserId(data);
+	const pointsData = await pointsModel.selectUserPointsRelByUserId(data);
+
+	res.locals.data.userPoints = pointsData[0].points;
 
 	if (res.locals.data.price > pointsData[0].points) {
 		res.status(406).json({

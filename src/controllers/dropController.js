@@ -112,13 +112,24 @@ async function deleteGachaCatFromGachaId(req, res, next) {
 }
 
 async function readRandomGachaCatFromGachaId(req, res, next) {
-	const data = {
+	let data = {
 		gacha_id: req.params.id,
 	};
 
+	if (res.locals.next) {
+		data = {
+			gacha_id: res.locals.data.box_id,
+		};
+	}
+
 	const results = await dropModel.selectRandomGachaCatByGachaId(data);
 
-	res.locals.data.cat_num = results[0].cat_num;
+	console.log(results);
+	console.log(results[2][0].cat_num);
+
+	res.locals.data.cat_num = results[2][0].cat_num;
+
+	next();
 }
 
 async function deleteDropFromCatNum(req, res, next) {

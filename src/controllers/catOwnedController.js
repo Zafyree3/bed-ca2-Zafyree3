@@ -5,7 +5,7 @@ async function addCatOwned(req, res, next) {
 	// TODO: FIX THIS, ALREADY HAVE ANOTHER FUCTIOSN CALLED CREATEDCATOWNED
 	let data = {
 		cat_num: req.body.cat_num,
-		owner_id: req.user.id,
+		owner_id: req.body.id || res.locals.userId,
 		cat_name: req.body.cat_name,
 		date_owned: moment(Date.now()).format("YYYY-MM-DD"), // Add the current date time
 	};
@@ -14,10 +14,12 @@ async function addCatOwned(req, res, next) {
 		data = {
 			cat_num: res.locals.data.cat_num,
 			owner_id: res.locals.data.user_id,
-			cat_name: "Cat",
+			cat_name: req.body.cat_name || res.locals.data.cat_name || "Cat",
 			date_owned: moment(Date.now()).format("YYYY-MM-DD"), // Add the current date time
 		};
 	}
+
+	console.log(data);
 
 	const results = await catOwnedModel.insertNewCatOwned(data);
 
@@ -124,9 +126,13 @@ async function updateCatOwnedFromId(req, res, next) {
 		return;
 	}
 
+	console.log(req.params.id);
+
 	let ownedData = await catOwnedModel.selectCatOwnedById({
 		cat_id: req.params.id,
 	});
+
+	console.log(ownedData);
 
 	ownedData = ownedData[0];
 

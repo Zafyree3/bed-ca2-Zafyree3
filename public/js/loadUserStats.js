@@ -18,16 +18,28 @@ document.addEventListener("DOMContentLoaded", () => {
 				datasets: [
 					{
 						label: "Tasks",
-						backgroundColor: ["#2af56d", "#8f2af5"],
+						backgroundColor: [
+							"rgba( 42, 245, 109, 0.2)",
+							"rgba(143, 42, 245, 0.2)",
+						],
+						hoverBackgroundColor: [
+							"rgba( 42, 245, 109, 0.5)",
+							"rgba(143, 42, 245, 0.5)",
+						],
+						borderColor: ["rgb( 42, 245, 109)", "rgb(143, 42, 245)"],
 						data: [completedCount, taskCount - completedCount],
-						hoverOffset: 4,
+						hoverOffset: 50,
 					},
 				],
 			},
 			options: {
-				title: {
-					display: true,
-					text: "Tasks",
+				aspectRatio: 1,
+				plugins: {
+					legend: {
+						labels: {
+							color: "#fff",
+						},
+					},
 				},
 			},
 		});
@@ -71,6 +83,34 @@ document.addEventListener("DOMContentLoaded", () => {
 					},
 				],
 			},
+			options: {
+				scales: {
+					r: {
+						angleLines: {
+							color: "rgba(255, 255, 255, 0.2)",
+						},
+						beginAtZero: true,
+						ticks: {
+							stepSize: 1,
+							backdropColor: "rgba(0, 0, 0, 0)",
+							color: "#fff",
+						},
+						pointLabels: {
+							color: "#fff",
+						},
+						grid: {
+							color: "rgba(255, 255, 255, 0.2)",
+						},
+					},
+				},
+				plugins: {
+					legend: {
+						labels: {
+							color: "#fff",
+						},
+					},
+				},
+			},
 		});
 	};
 
@@ -97,8 +137,36 @@ document.addEventListener("DOMContentLoaded", () => {
 						pointBorderColor: "#fff",
 						pointHoverBackgroundColor: "#fff",
 						pointHoverBorderColor: "rgb(42, 245, 143)",
+						xAxisId: "xAxis",
 					},
 				],
+			},
+			options: {
+				aspectRatio: 1,
+				scales: {
+					x: {
+						display: false,
+						grid: {
+							color: "rgba(255, 255, 255, 0.2)",
+						},
+					},
+					y: {
+						ticks: {
+							backdropColor: "rgba(0, 0, 0, 0)",
+							color: "#fff",
+						},
+						grid: {
+							color: "rgba(255, 255, 255, 0.2)",
+						},
+					},
+				},
+				plugins: {
+					legend: {
+						labels: {
+							color: "#fff",
+						},
+					},
+				},
 			},
 		});
 	};

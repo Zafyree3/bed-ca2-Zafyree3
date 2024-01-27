@@ -11,6 +11,7 @@ const abilityRouter = require("./abilityRoutes");
 const backyardRouter = require("./backyardRoutes");
 const messagesRouter = require("./messagesRoutes");
 const transactionRouter = require("./transactionRoutes");
+const inventoryRouter = require("./inventoryRoutes");
 
 router.use("/users", userRoutes);
 router.use("/tasks", tasksRouter);
@@ -22,6 +23,7 @@ router.use("/ability", abilityRouter);
 router.use("/backyard", backyardRouter);
 router.use("/messages", messagesRouter);
 router.use("/transactions", transactionRouter);
+router.use("/inventory", inventoryRouter);
 
 const tokenController = require("../controllers/tokenController");
 const userController = require("../controllers/userController");

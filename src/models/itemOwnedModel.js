@@ -6,7 +6,7 @@ async function insertNewItemOwned(data) {
 		VALUES (?,?,?);
 	`;
 
-	const VALUES = [data.item_num, data.owner_id, data.quantity];
+	const VALUES = [data.item_num, data.user_id, data.quantity];
 
 	const [header, _] = await pool.query(SQLQUERY, VALUES);
 
@@ -31,6 +31,20 @@ async function selectItemOwnedById(data) {
 	`;
 
 	const VALUES = [data.item_id];
+
+	const [header, _] = await pool.query(SQLQUERY, VALUES);
+
+	return header;
+}
+
+async function selectItemOwnedByUserId(data) {
+	const SQLQUERY = `
+		SELECT * FROM ItemOwned
+		LEFT JOIN Item ON ItemOwned.item_num = Item.item_num
+		WHERE owner_id = ?;
+	`;
+
+	const VALUES = [data.owner_id];
 
 	const [header, _] = await pool.query(SQLQUERY, VALUES);
 
@@ -88,4 +102,5 @@ module.exports = {
 	updateItemOwnedById,
 	deleteItemOwnedById,
 	deleteItemOwnedByItemNum,
+	selectItemOwnedByUserId,
 };

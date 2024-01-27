@@ -7,6 +7,8 @@ const inventoryController = require("../controllers/inventoryController.js");
 const catOwnedController = require("../controllers/catOwnedController.js");
 const dropController = require("../controllers/dropController.js");
 const pointsController = require("../controllers/pointsController.js");
+const transactionController = require("../controllers/transactionController.js");
+const jwtMiddleware = require("../middlewares/jwtMiddleware.js");
 
 const itemRouter = require("../routes/itemRoutes.js");
 const gachaRouter = require("../routes/gachaRoutes.js");
@@ -14,21 +16,25 @@ const gachaRouter = require("../routes/gachaRoutes.js");
 router.get("/", shopController.readShop);
 router.post(
 	"/buy",
+	jwtMiddleware.verifyToken,
 	shopController.buyItem,
 	shopController.findItemPrice,
 	userController.checkIfUserExist,
 	pointsController.checkIfPointsIsEnuf,
 	pointsController.updatePointsByUserId,
+	transactionController.createTransaction,
 	inventoryController.addItemOwned
 );
 
 router.post(
 	"/buy/gachas",
+	jwtMiddleware.verifyToken,
 	shopController.buyGacha,
 	shopController.findGachaPrice,
 	userController.checkIfUserExist,
 	pointsController.checkIfPointsIsEnuf,
 	pointsController.updatePointsByUserId,
+	transactionController.createTransaction,
 	dropController.readRandomGachaCatFromGachaId,
 	catOwnedController.addCatOwned
 );

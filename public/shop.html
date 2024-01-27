@@ -20,32 +20,32 @@
 
 			<main class="px-3 w-75 mx-auto flex-grow-1 mb-3">
 				<div class="w-100">
-					<h1>Tasks</h1>
+					<h1>Shop</h1>
 					<hr
 						class="border-0 border-bottom w-100 border-white mb-5 opacity-100"
 					/>
 				</div>
 
-				<h2 class="text-start">Accept Tasks</h2>
-				<p class="text-start fst-italic text-info">
-					Click to accept tasks to do.
+				<h2 class="text-start">Gacha Boxes</h2>
+				<p class="text-start fst-italic text-warning">
+					Buy these boxes to unlock cats!
 				</p>
 				<div
-					id="task-container"
-					class="container gap-2 overflow-y-scroll mh-100 p-4 bg-body-secondary bg-opacity-50 shadow rounded-3"
+					id="box-container"
+					class="container gap-2 overflow-y-scroll mh-100 p-4 bg-body-secondary bg-opacity-50 shadow rounded-3 mb-3"
 				>
-					<div id="task-row" class="w-100 m-0 row h-100 g-3"></div>
+					<div id="box-row" class="w-100 m-0 row h-100 g-3"></div>
 				</div>
 
-				<div id="completed-task-wrapper" class="mt-5">
-					<h2 class="text-start">Completed Tasks</h2>
-
-					<div
-						id="completed-container"
-						class="container gap-2 overflow-y-scroll mh-100 p-4 bg-body-secondary bg-opacity-50 shadow rounded-3"
-					>
-						<div id="completed-row" class="w-100 m-0 row h-100 g-3"></div>
-					</div>
+				<h2 class="text-start">Item Shops</h2>
+				<p class="text-start fst-italic text-warning">
+					Buy theese items to use!
+				</p>
+				<div
+					id="item-container"
+					class="container gap-2 overflow-y-scroll mh-100 p-4 bg-body-secondary bg-opacity-50 shadow rounded-3"
+				>
+					<div id="item-row" class="w-100 m-0 row h-100 g-3"></div>
 				</div>
 			</main>
 
@@ -53,15 +53,17 @@
 
 			<div
 				class="modal fade"
-				id="editModal"
+				id="successModal"
 				tabindex="-1"
-				aria-labelledby="editModalLabel"
+				aria-labelledby="successModalLabel"
 				aria-hidden="true"
 			>
 				<div class="modal-dialog">
 					<div class="modal-content">
 						<div class="modal-header">
-							<h1 class="modal-title fs-5" id="editModalLabel">Edit Notes</h1>
+							<h1 class="modal-title fs-5" id="successModelTitle">
+								Purchased!
+							</h1>
 							<button
 								type="button"
 								class="btn-close"
@@ -70,7 +72,7 @@
 							></button>
 						</div>
 						<div class="modal-body">
-							<textarea id="editNotes" class="form-control" rows="3"></textarea>
+							<p id="successModalBody"></p>
 						</div>
 						<div class="modal-footer">
 							<button
@@ -79,13 +81,6 @@
 								data-bs-dismiss="modal"
 							>
 								Close
-							</button>
-							<button
-								id="editModalSubmit"
-								type="button"
-								class="btn btn-primary"
-							>
-								Save changes
 							</button>
 						</div>
 					</div>
@@ -113,7 +108,10 @@
 		<script src="js/getCurrentURL.js" type="text/javascript"></script>
 		<script src="js/userNavbarToggle.js" type="text/javascript"></script>
 
-		<script src="js/loadTasks.js" type="text/javascript"></script>
-		<script src="js/loadCompleted.js" type="text/javascript"></script>
+		<script src="js/loadItems.js" type="text/javascript"></script>
+		<script src="js/handleItemPurchase.js" type="text/javascript"></script>
+
+		<script src="js/loadGachas.js" type="text/javascript"></script>
+		<script src="js/handleGachaPurchase.js" type="text/javascript"></script>
 	</body>
 </html>
