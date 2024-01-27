@@ -2,6 +2,9 @@
 	--primary: 143, 42, 245;
 	--secondary: 42, 245, 109;
 	--tertiary: 245, 163, 41;
+	--primaryHex: #8f2af5;
+	--secondaryHex: #2af56d;
+	--tertiaryHex: #f5a329;
 }
 
 html {
@@ -61,4 +64,9 @@ html {
 
 .message[data-own_message="1"]:hover {
 	filter: brightness(1.3);
+}
+
+/* Profile Page */
+.ratio-9x16 {
+	--bs-aspect-ratio: calc((16 / 9) * 100%);
 }

@@ -1,0 +1,129 @@
+document.addEventListener("DOMContentLoaded", () => {
+	const token = localStorage.getItem("token");
+
+	const tasksCallback = (status, data) => {
+		const taskCount = data.length;
+
+		const completedCount = data.filter((task) => {
+			return task.completed == 1;
+		}).length;
+
+		console.log(taskCount);
+		console.log(completedCount);
+
+		new Chart(document.getElementById("completed-chart"), {
+			type: "pie",
+			data: {
+				labels: ["Completed", "Incomplete"],
+				datasets: [
+					{
+						label: "Tasks",
+						backgroundColor: ["#2af56d", "#8f2af5"],
+						data: [completedCount, taskCount - completedCount],
+						hoverOffset: 4,
+					},
+				],
+			},
+			options: {
+				title: {
+					display: true,
+					text: "Tasks",
+				},
+			},
+		});
+	};
+
+	const catsCallback = (status, data) => {
+		const catCount = data.length;
+
+		const catBreedCount = {};
+
+		console.log(data);
+
+		data.forEach((cat) => {
+			let breed = cat.cat_breed;
+			breed = breed.replace("Cat", "").trim();
+			if (catBreedCount[breed] == undefined) {
+				catBreedCount[breed] = 1;
+			} else {
+				catBreedCount[breed] += 1;
+			}
+		});
+
+		console.log(Object.keys(catBreedCount));
+		console.log(Object.values(catBreedCount));
+
+		new Chart(document.getElementById("cats-chart"), {
+			type: "radar",
+			data: {
+				labels: Object.keys(catBreedCount),
+				datasets: [
+					{
+						label: "Cats",
+						data: Object.values(catBreedCount),
+						fill: true,
+						backgroundColor: "rgba(143, 42, 245, 0.2)",
+						borderColor: "rgb(143, 42, 245)",
+						pointBackgroundColor: "rgb(143, 42, 245)",
+						pointBorderColor: "#fff",
+						pointHoverBackgroundColor: "#fff",
+						pointHoverBorderColor: "rgb(143, 42, 245)",
+					},
+				],
+			},
+		});
+	};
+
+	const transcationCallback = (status, data) => {
+		console.log(data);
+
+		let pointList = [0];
+		data.forEach((transaction) => {
+			pointList.push(transaction.points);
+		});
+
+		new Chart(document.getElementById("points-chart"), {
+			type: "line",
+			data: {
+				labels: pointList,
+				datasets: [
+					{
+						label: "Points",
+						data: pointList,
+						fill: true,
+						backgroundColor: "rgba(42, 245, 143, 0.2)",
+						borderColor: "rgb(42, 245, 143)",
+						pointBackgroundColor: "rgb(42, 245, 143)",
+						pointBorderColor: "#fff",
+						pointHoverBackgroundColor: "#fff",
+						pointHoverBorderColor: "rgb(42, 245, 143)",
+					},
+				],
+			},
+		});
+	};
+
+	fetchMethod(
+		currentUrl + "/api/transactions/user",
+		transcationCallback,
+		"GET",
+		null,
+		token
+	);
+
+	fetchMethod(
+		currentUrl + "/api/owned/owner",
+		catsCallback,
+		"GET",
+		null,
+		token
+	);
+
+	fetchMethod(
+		currentUrl + "/api/tasks/user",
+		tasksCallback,
+		"GET",
+		null,
+		token
+	);
+});

@@ -55,6 +55,40 @@ function loadTasks() {
 				const callback = (status, data) => {
 					console.log(data);
 					loadTasks();
+					loadCompleted();
+
+					const taskPoints = parseInt(taskCard.dataset.points);
+
+					const addPointsCallback = (status, data) => {
+						console.log("test");
+						const transCallback = (status, data) => {
+							console.log("none");
+						};
+
+						const transData = {
+							points_change: taskPoints,
+						};
+
+						fetchMethod(
+							currentUrl + "/api/transactions",
+							transCallback,
+							"POST",
+							transData,
+							token
+						);
+					};
+
+					const Pointsdata = {
+						points: taskPoints,
+					};
+
+					fetchMethod(
+						currentUrl + "/api/users/points/add",
+						addPointsCallback,
+						"PUT",
+						Pointsdata,
+						token
+					);
 				};
 
 				const data = {
@@ -91,6 +125,9 @@ function loadTasks() {
 			if (task.completed == 1) {
 				taskCard.classList.add("bg-success", "text-white", "bg-opacity-50");
 			}
+
+			taskCard.dataset.id = task.task_id;
+			taskCard.dataset.points = task.points;
 
 			taskCol.appendChild(taskCard);
 

@@ -27,7 +27,7 @@ async function selectAllCatOwned() {
 async function selectAllCatOwnedDetail() {
 	// Combine CatOwned, User, Cat, Ability to give detailed of all cats
 	const SQLQUERY = `
-		SELECT cat_id, cat_name, owner_id, User.username AS owner_username, Cat.cat_num, Cat.breed AS cat_breed, Ability.action AS ability_action, Ability.description AS ability_description FROM bed_ca1.CatOwned
+		SELECT cat_id, cat_name, owner_id, User.username AS owner_username, Cat.cat_num, Cat.breed AS cat_breed, Ability.action AS ability_action, Ability.description AS ability_description FROM CatOwned
 		INNER JOIN User ON User.user_id = CatOwned.owner_id
 		INNER JOIN Cat ON Cat.cat_num = CatOwned.cat_num
 		INNER JOIN Ability ON Ability.ability_id = Cat.ability_id;
@@ -41,7 +41,7 @@ async function selectAllCatOwnedDetail() {
 async function selectAllCatOwnedDetailById(data) {
 	// Same as above, however only get by cat_id
 	const SQLQUERY = `
-		SELECT cat_id, cat_name, owner_id, User.username AS owner_username, Cat.cat_num, Cat.breed AS cat_breed, Ability.action AS ability_action, Ability.description AS ability_description FROM bed_ca1.CatOwned
+		SELECT cat_id, cat_name, owner_id, User.username AS owner_username, Cat.cat_num, Cat.breed AS cat_breed, Ability.action AS ability_action, Ability.description AS ability_description FROM CatOwned
 		INNER JOIN User ON User.user_id = CatOwned.owner_id
 		INNER JOIN Cat ON Cat.cat_num = CatOwned.cat_num
 		INNER JOIN Ability ON Ability.ability_id = Cat.ability_id
@@ -58,7 +58,7 @@ async function selectAllCatOwnedDetailById(data) {
 async function selectAllCatOwnedDetailByOwnerId(data) {
 	// Full deatils of all cats owned by a user
 	const SQLQUERY = `
-		SELECT cat_id, cat_name, owner_id, User.username AS owner_username, Cat.cat_num, Cat.breed AS cat_breed, Ability.action AS ability_action, Ability.description AS ability_description FROM bed_ca1.CatOwned
+		SELECT cat_id, cat_name, owner_id, User.username AS owner_username, Cat.cat_num, Cat.breed AS cat_breed, Ability.action AS ability_action, Ability.description AS ability_description FROM CatOwned
 		INNER JOIN User ON User.user_id = CatOwned.owner_id
 		INNER JOIN Cat ON Cat.cat_num = CatOwned.cat_num
 		INNER JOIN Ability ON Ability.ability_id = Cat.ability_id

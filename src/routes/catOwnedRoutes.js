@@ -3,6 +3,7 @@ const router = express.Router();
 
 const catOwnedController = require("../controllers/catOwnedController");
 const userController = require("../controllers/userController");
+const jwtMiddleware = require("../middlewares/jwtMiddleware");
 
 router.get("/", catOwnedController.readCatOwned);
 router.get("/details", catOwnedController.readCatOwnedDetails);
@@ -11,6 +12,14 @@ router.get(
 	catOwnedController.checkIfCatOwnedExist,
 	catOwnedController.readCatOwnedDetailsFromId
 );
+
+router.get(
+	"/owner",
+	jwtMiddleware.verifyToken,
+	userController.checkIfUserExist,
+	catOwnedController.readCatOwnedDetailsFromOwnerId
+);
+
 router.get(
 	"/owner/:id",
 	userController.checkIfUserExist,

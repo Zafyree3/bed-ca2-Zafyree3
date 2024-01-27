@@ -8,7 +8,7 @@ async function selectAll(data, callback) {
 	ORDER BY Messages.created_at
 	`;
 
-	const [VALUES] = [data.user_id];
+	const [VALUES] = [data ? data.user_id : 0];
 
 	const [header, _] = await pool.query(SQLSTATMENT, VALUES, callback);
 

@@ -58,7 +58,7 @@ async function readCatOwnedDetailsFromOwnerId(req, res, next) {
 	// Read all cats owned with details From OwnerId
 
 	const data = {
-		owner_id: req.params.id,
+		owner_id: req.params.id || res.locals.userId,
 	};
 
 	let results = await catOwnedModel.selectAllCatOwnedDetailByOwnerId(data);

@@ -13,6 +13,20 @@ async function insertNewUserPointRel(data) {
 	return header;
 }
 
+async function addPointsByUserId(data) {
+	const SQLQUERY = `
+	UPDATE UserPointsRel
+	SET points = points + ?
+	WHERE user_id = ?
+	`;
+
+	const VALUES = [data.points, data.user_id];
+
+	const [header, _] = await pool.query(SQLQUERY, VALUES);
+
+	return header;
+}
+
 async function selectAllUserPointsRel(data) {
 	const SQLQUERY = `
         SELECT * From UserPointsRel
@@ -43,7 +57,7 @@ async function selectUserPointsRelByUserId(data) {
         WHERE user_id = ?;
     `;
 
-	const VALUES = [data.points_id];
+	const VALUES = [data.user_id];
 
 	const [header, _] = await pool.query(SQLQUERY, VALUES);
 
@@ -117,4 +131,5 @@ module.exports = {
 	updatePointsByUserId,
 	deleteUserPointsRelById,
 	deleteUserPointsRelByUserId,
+	addPointsByUserId,
 };

@@ -11,6 +11,7 @@
 			integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM"
 			crossorigin="anonymous"
 		/>
+
 		<link rel="stylesheet" href="css/styles.css" />
 
 		<title>Profile</title>
@@ -23,7 +24,7 @@
 			<nav-bar class="justify-content-center float-md-en w-100"></nav-bar>
 
 			<main
-				class="flex-grow-1 d-flex justify-content-start align-items-start flex-column w-75 mx-auto"
+				class="flex-grow-1 d-flex justify-content-start align-items-start flex-column w-75 mx-auto mb-3"
 			>
 				<h1 class="mx-auto">Profile Page</h1>
 				<hr
@@ -31,7 +32,7 @@
 				/>
 
 				<div
-					class="container bg-secondary rounded-2 p-4 align-items-start text-start shadow"
+					class="container bg-body-secondary bg-opacity-50 rounded-2 p-4 align-items-start text-start shadow mb-3"
 				>
 					<h4>User Name:</h4>
 					<p id="username-text">Username</p>
@@ -41,6 +42,35 @@
 
 					<h4>Points:</h4>
 					<p id="userpoints-text" class="m-0">0</p>
+				</div>
+
+				<div
+					class="container bg-body-secondary bg-opacity-50 rounded-2 p-4 align-items-start text-start shadow row m-0 g-3"
+				>
+					<div id="completed-stats" class="col-12 col-md-6 col-lg-4">
+						<h3 class="mx-auto text-center">Completed Task</h3>
+						<div
+							class="wrapper w-100 h-100 d-flex justify-content-center align-items-center"
+						>
+							<canvas id="completed-chart" class="mx-0 my-auto"></canvas>
+						</div>
+					</div>
+					<div id="cats-stats" class="col-12 col-md-6 col-lg-4">
+						<h3 class="mx-auto text-center">Cat Collected</h3>
+						<div
+							class="wrapper w-100 h-100 d-flex justify-content-center align-items-center"
+						>
+							<canvas id="cats-chart" class="mx-0 my-auto"></canvas>
+						</div>
+					</div>
+					<div id="points-stats" class="col-12 col-md-6 col-lg-4">
+						<h3 class="mx-auto text-center">Points Overall</h3>
+						<div
+							class="wrapper w-100 h-100 d-flex justify-content-center align-items-center"
+						>
+							<canvas id="points-chart" class="mx-0 my-auto"></canvas>
+						</div>
+					</div>
 				</div>
 			</main>
 
@@ -64,11 +94,13 @@
 			crossorigin="anonymous"
 		></script>
 		<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
 
 		<script src="js/queryCmds.js" type="text/javascript"></script>
 		<script src="js/getCurrentURL.js" type="text/javascript"></script>
 		<script src="js/userNavbarToggle.js" type="text/javascript"></script>
 
 		<script src="js/loadUserProfileData.js" type="text/javascript"></script>
+		<script src="js/loadUserStats.js" type="text/javascript"></script>
 	</body>
 </html>

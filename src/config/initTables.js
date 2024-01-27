@@ -16,6 +16,15 @@ DROP TABLE IF EXISTS ItemOwned;
 DROP TABLE IF EXISTS Gacha;
 DROP TABLE IF EXISTS GachaDrop;
 DROP TABLE IF EXISTS Messages;
+DROP TABLE IF EXISTS Transactions;
+
+CREATE TABLE Transactions (
+    transaction_id INT PRIMARY KEY AUTO_INCREMENT,
+    user_id INT NOT NULL,
+    points INT NOT NULL,
+    points_change INT NOT NULL,
+    date_occured TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
 
 CREATE TABLE Messages (
     id INT PRIMARY KEY AUTO_INCREMENT,

@@ -193,12 +193,12 @@ async function checkIfUserExist(req, res, next) {
 	const usersData = await userModel.selectAllUsers();
 
 	let data = {
-		user_id: req.params.id,
+		user_id: req.params.id || res.locals.userId,
 	};
 
 	if (res.locals.next) {
 		data = {
-			user_id: res.locals.data.user_id,
+			user_id: res.locals.data.user_id || res.locals.userId,
 		};
 	}
 

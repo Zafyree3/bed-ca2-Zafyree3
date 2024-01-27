@@ -1,10 +1,23 @@
 document.addEventListener("DOMContentLoaded", function () {
+	loadCompleted();
+});
+
+function loadCompleted() {
 	const token = localStorage.getItem("token");
 	const completedDiv = document.getElementById("completed-row");
 
 	const callback = (status, data) => {
 		console.log(data);
 		completedDiv.innerHTML = "";
+
+		if (data.length == 0) {
+			const wrapper = document.getElementById("completed-task-wrapper");
+			wrapper.hidden = true;
+		} else {
+			const wrapper = document.getElementById("completed-task-wrapper");
+			wrapper.hidden = false;
+		}
+
 		data.forEach((task) => {
 			const completedCol = document.createElement("div");
 			completedCol.className = "col-md-3";
@@ -54,6 +67,7 @@ document.addEventListener("DOMContentLoaded", function () {
 					const callback = (status, data) => {
 						console.log(data);
 						loadCompleted();
+						modal.hide();
 					};
 
 					const data = {
@@ -104,4 +118,4 @@ document.addEventListener("DOMContentLoaded", function () {
 			token
 		);
 	}
-});
+}

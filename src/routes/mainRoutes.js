@@ -10,6 +10,7 @@ const catOwnedRouter = require("./catOwnedRoutes");
 const abilityRouter = require("./abilityRoutes");
 const backyardRouter = require("./backyardRoutes");
 const messagesRouter = require("./messagesRoutes");
+const transactionRouter = require("./transactionRoutes");
 
 router.use("/users", userRoutes);
 router.use("/tasks", tasksRouter);
@@ -20,6 +21,7 @@ router.use("/owned", catOwnedRouter);
 router.use("/ability", abilityRouter);
 router.use("/backyard", backyardRouter);
 router.use("/messages", messagesRouter);
+router.use("/transactions", transactionRouter);
 
 const tokenController = require("../controllers/tokenController");
 const userController = require("../controllers/userController");

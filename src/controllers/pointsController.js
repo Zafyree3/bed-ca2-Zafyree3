@@ -14,20 +14,46 @@ async function readPointsFromId(req, res, next) {
 		points_id: req.params.id,
 	};
 
-	const results = await pointsModel.selectAllUserPointsRelById(data);
+	const results = await pointsModel.selectUserPointsRelById(data);
 
 	res.status(200).json(results[0]);
+}
+
+async function addPointsByUserId(req, res, next) {
+	// Add points from ID
+	const data = {
+		user_id: req.params.id || res.locals.userId,
+		points: req.body.points,
+	};
+
+	const results = await pointsModel.addPointsByUserId(data);
+
+	res.status(200).json(results);
 }
 
 async function readPointsFromUserId(req, res, next) {
 	// Read all points from user ID
 	const data = {
-		user_id: req.params.id,
+		user_id: req.params.id || res.locals.userId,
 	};
 
-	const results = await pointsModel.selectAllUserPointsRelByUserId(data);
+	const results = await pointsModel.selectUserPointsRelByUserId(data);
 
 	res.status(200).json(results[0]);
+}
+
+async function readPointsFromUserIdAndSaveToLocals(req, res, next) {
+	// Read all points from user ID
+	const data = {
+		user_id: req.params.id || res.locals.userId,
+	};
+
+	const results = await pointsModel.selectUserPointsRelByUserId(data);
+
+	console.log(results);
+
+	res.locals.points = results[0].points;
+	next();
 }
 
 async function updateUserPointsRelFromId(req, res, next) {
@@ -202,10 +228,10 @@ async function deleteUserPointsRelByUserId(req, res, next) {
 }
 
 async function checkIfUserIdExist(req, res, next) {
-	const pointsData = await pointsModel.selectAllUserPointsRel();
+	const userData = await pointsModel.selectAllUserPointsRel();
 
 	let data = {
-		user_id: req.params.id,
+		user_id: req.params.id || res.locals.userId,
 	};
 
 	if (userData.findIndex((points) => points.user_id == data.user_id) == -1) {
@@ -252,4 +278,6 @@ module.exports = {
 	checkIfUserIdExist,
 	updatePointsByUserId,
 	checkIfPointsIsEnuf,
+	readPointsFromUserIdAndSaveToLocals,
+	addPointsByUserId,
 };

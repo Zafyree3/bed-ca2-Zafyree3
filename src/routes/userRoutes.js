@@ -41,6 +41,14 @@ router.put(
 	pointsController.updatePointsByUserId
 );
 
+router.put(
+	"/points/add",
+	jwtMiddleware.verifyToken,
+	userController.checkIfUserExist,
+	pointsController.checkIfUserIdExist,
+	pointsController.addPointsByUserId
+);
+
 router.delete(
 	"/:id",
 	userController.checkIfUserExist,
