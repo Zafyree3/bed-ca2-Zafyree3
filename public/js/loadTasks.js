@@ -43,7 +43,7 @@ function loadTasks() {
 
 			const taskButton = document.createElement("button");
 			taskButton.className = "btn btn-info";
-			taskButton.innerHTML = "Accept";
+			taskButton.innerHTML = "Completed?";
 
 			if (task.completed == 1) {
 				taskButton.disabled = true;

@@ -1,5 +1,11 @@
 # Irman BED CA1 Project
 
+# Things I can do more
+
+- Add an admin panel
+- Add a trading system
+- Screw the orignal game
+
 ## Idea
 
 A Neko Atsume like game
