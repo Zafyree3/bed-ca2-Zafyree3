@@ -87,7 +87,7 @@ async function registerUser(req, res, next) {
 
 	const results = await userModel.insertNewUser(data);
 
-	res.locals.id = results.insertId;
+	res.locals.userId = results.insertId;
 	res.locals.message = `User ${req.body.username} created successfully`;
 	next();
 }

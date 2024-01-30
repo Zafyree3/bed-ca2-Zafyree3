@@ -197,6 +197,31 @@ async function createUserPointsRel(req, res, next) {
 	});
 }
 
+async function createUserPointsRelRegister(req, res, next) {
+	const data = {
+		user_id: res.locals.userId,
+		points: 0,
+		last_updated: moment().format("YYYY-MM-DD"),
+	};
+
+	const results = await pointsModel.insertNewUserPointRel(data);
+
+	if (results.errno != undefined) {
+		res.status(400).json({
+			error: results.sqlMessage,
+		});
+	}
+
+	if (results.affectedRows == 0) {
+		res.status(400).json({
+			error: "Cannot create new item",
+		});
+		return;
+	}
+
+	next();
+}
+
 async function deleteUserPointsRelById(req, res, next) {
 	const data = {
 		points_id: req.params.id,
@@ -286,4 +311,5 @@ module.exports = {
 	checkIfPointsIsEnuf,
 	readPointsFromUserIdAndSaveToLocals,
 	addPointsByUserId,
+	createUserPointsRelRegister
 };

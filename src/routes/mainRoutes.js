@@ -29,6 +29,7 @@ const tokenController = require("../controllers/tokenController");
 const userController = require("../controllers/userController");
 const jwtMiddleware = require("../middlewares/jwtMiddleware");
 const bcryptMiddleware = require("../middlewares/bcryptMiddleware");
+const pointsController = require("../controllers/pointsController");
 
 router.post(
 	"/register",
@@ -36,8 +37,10 @@ router.post(
 	userController.checkIfUsernameIsUsed,
 	bcryptMiddleware.hashPassword,
 	userController.registerUser,
+	pointsController.createUserPointsRelRegister,
 	jwtMiddleware.generateToken,
-	jwtMiddleware.sendToken
+	jwtMiddleware.sendToken,
+	
 );
 
 router.post(

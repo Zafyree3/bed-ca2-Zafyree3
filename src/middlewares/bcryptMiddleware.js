@@ -22,7 +22,7 @@ module.exports.comparePassword = (req, res, next) => {
 				next();
 			} else {
 				res.status(401).json({
-					message: "Wrong password",
+					error: "Wrong password",
 				});
 			}
 		}
