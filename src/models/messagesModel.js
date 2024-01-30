@@ -4,7 +4,7 @@ const pool = require("../services/db");
 async function selectAll(data, callback) {
 	const SQLSTATMENT = `
     SELECT Messages.id, Messages.message_text, user.user_id, user.username, messages.created_at , IF(User.user_id = ?,TRUE,FALSE) AS own_message FROM Messages
-	LEFT JOIN USER ON Messages.user_id = User.user_id
+	LEFT JOIN User ON Messages.user_id = User.user_id
 	ORDER BY Messages.created_at
 	`;
 
