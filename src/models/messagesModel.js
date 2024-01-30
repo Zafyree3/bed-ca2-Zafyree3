@@ -3,7 +3,7 @@ const pool = require("../services/db");
 //module.exports.selectAll = (callback) => {
 async function selectAll(data, callback) {
 	const SQLSTATMENT = `
-    SELECT Messages.id, Messages.message_text, user.user_id, user.username, messages.created_at , IF(User.user_id = ?,TRUE,FALSE) AS own_message FROM Messages
+    SELECT Messages.id, Messages.message_text, User.user_id, User.username, Messages.created_at , IF(User.user_id = ?,TRUE,FALSE) AS own_message FROM Messages
 	LEFT JOIN User ON Messages.user_id = User.user_id
 	ORDER BY Messages.created_at
 	`;
