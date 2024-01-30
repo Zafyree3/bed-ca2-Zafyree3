@@ -8,6 +8,9 @@ const setting = {
 	password: process.env.DB_PASSWORD,
 	database: process.env.DB_DATABASE,
 	port: process.env.DB_PORT || 3306,
+	ssl: {
+		rejectUnauthorized: process.env.DB_SSL_REJECT_UNAUTHORIZED == "true",
+	},
 	multipleStatements: true,
 	dateStrings: true,
 };
