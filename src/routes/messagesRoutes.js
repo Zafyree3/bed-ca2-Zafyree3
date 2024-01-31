@@ -12,7 +12,7 @@ router.get(
 );
 router.post("/", jwtMiddleware.verifyToken, controller.createMessage);
 router.get("/:id", controller.readMessageById);
-router.put("/:id", controller.updateMessageById);
+router.put("/:id", jwtMiddleware.verifyToken, controller.updateMessageById);
 router.delete("/:id", controller.deleteMessageById);
 
 module.exports = router;

@@ -46,11 +46,10 @@ function loadMessage(token) {
 			if (own_message == 1) {
 				message.classList.add("align-self-end");
 				messageHeader.classList.add("text-end");
-				message.dataset.bsTitle = "Delete";
 				message.dataset.bsToggle = "popover";
-				message.dataset.bsContent = "Delete this message";
 				message.dataset.bsPlacement = "left";
 				message.dataset.bsHtml = "true";
+				message.dataset.msg = message_text;
 				//message.dataset.bsTrigger = "focus";
 
 				//message.popover();
@@ -88,16 +87,23 @@ function loadMessage(token) {
 				html: true,
 				trigger: "click",
 				content: function () {
-					return `<a id="delete-msg" class="btn btn-danger"><img src="https://upload.wikimedia.org/wikipedia/commons/7/7d/Trash_font_awesome.svg" width=30 /></a>`;
+					return `<div class="d-flex gap-3"><a id="delete-msg" class="btn btn-danger">
+						<img src="https://upload.wikimedia.org/wikipedia/commons/7/7d/Trash_font_awesome.svg" width=30 />
+						</a>
+						<a id="edit-msg" class="btn btn-info">
+						<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/64/Edit_icon_%28the_Noun_Project_30184%29.svg/480px-Edit_icon_%28the_Noun_Project_30184%29.svg.png" width=30 />
+						</a>
+						</div>`;
 				},
 			};
 
 			const popover = new bootstrap.Popover(popoverTriggerEl, options);
 
 			popoverTriggerEl.addEventListener("inserted.bs.popover", function () {
-				const button = document.getElementById("delete-msg");
+				const deleteButton = document.getElementById("delete-msg");
+				const editButton = document.getElementById("edit-msg");
 
-				button.addEventListener("click", function () {
+				deleteButton.addEventListener("click", function () {
 					const messageId = popoverTriggerEl.dataset.messageId;
 
 					const callback = (status, data) => {
@@ -120,6 +126,50 @@ function loadMessage(token) {
 						null,
 						token
 					);
+				});
+
+				editButton.addEventListener("click", function () {
+					const messageId = popoverTriggerEl.dataset.messageId;
+
+					const editModal = new bootstrap.Modal(
+						document.getElementById("editModal")
+					);
+
+					const editModalSubmit = document.getElementById("editModalSubmit");
+					const editText = document.getElementById("editMessage");
+
+					editModalSubmit.addEventListener("click", function () {
+						const token = localStorage.getItem("token");
+
+						loadingScreen.classList.remove("d-none");
+						loadingScreen.classList.add("d-block");
+
+						const callback = (status, data) => {
+							console.log(data);
+							loadMessage(token);
+							editModal.hide();
+
+							loadingScreen.classList.remove("d-block");
+							loadingScreen.classList.add("d-none");
+						};
+
+						const data = {
+							message_text: editText.value,
+						};
+
+						fetchMethod(
+							currentUrl + `/api/messages/${messageId}`,
+							callback,
+							"PUT",
+							data,
+							token
+						);
+					});
+
+					editText.value = popoverTriggerEl.dataset.msg;
+
+					editModal.show();
+					popover.hide();
 				});
 			});
 		});

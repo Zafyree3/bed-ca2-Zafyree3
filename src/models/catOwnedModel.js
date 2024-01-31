@@ -1,5 +1,15 @@
 const pool = require("../services/db");
 
+async function countAllCatOwned() {
+	const SQLQUERY = `
+		SELECT COUNT(*) AS total FROM CatOwned;
+	`;
+
+	const [header, _] = await pool.query(SQLQUERY);
+
+	return header;
+}
+
 async function insertNewCatOwned(data) {
 	const SQLQUERY = `
         INSERT INTO CatOwned (cat_name, owner_id,cat_num,date_owned)
@@ -129,4 +139,5 @@ module.exports = {
 	selectAllCatOwnedDetail,
 	selectAllCatOwnedDetailById,
 	selectAllCatOwnedDetailByOwnerId,
+	countAllCatOwned,
 };

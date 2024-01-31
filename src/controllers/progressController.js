@@ -2,6 +2,12 @@ const progressModel = require("../models/progressModel");
 const userModel = require("../models/userModel");
 const taskModel = require("../models/taskModel");
 
+async function countProgress(req, res, next) {
+	const results = await progressModel.countAllTaskProgresses();
+
+	res.status(200).json(results[0]);
+}
+
 async function deleteProgressFromUserId(req, res, next) {
 	const data = {
 		user_id: req.params.id,
@@ -177,4 +183,5 @@ module.exports = {
 	checkIfProgressExist,
 	readProgressFromUserId,
 	readProgress,
+	countProgress,
 };

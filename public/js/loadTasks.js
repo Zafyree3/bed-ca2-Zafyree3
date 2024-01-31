@@ -56,6 +56,13 @@ function loadTasks() {
 
 				const token = localStorage.getItem("token");
 
+				if (token == null) {
+					createErrorToast("You must be logged in to complete a task");
+					loadingScreen.classList.remove("d-block");
+					loadingScreen.classList.add("d-none");
+					return;
+				}
+
 				const callback = (status, data) => {
 					console.log(data);
 					loadTasks();

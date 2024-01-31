@@ -3,6 +3,8 @@ document.addEventListener("DOMContentLoaded", () => {
 	const loadingScreen = document.getElementById("loading-screen");
 
 	const tasksCallback = (status, data) => {
+		console.log(data);
+
 		const taskCount = data.length;
 
 		const completedCount = data.filter((task) => {

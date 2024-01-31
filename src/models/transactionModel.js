@@ -1,5 +1,16 @@
 const pool = require("../services/db");
 
+async function selectSpentPoints() {
+	const SQLQUERY = `
+		SELECT SUM(points_change) AS total_spent FROM Transactions
+		WHERE points_change < 0;
+	`;
+
+	const [header, _] = await pool.query(SQLQUERY);
+
+	return header;
+}
+
 async function selectAll() {
 	const SQLQUERY = `
         SELECT * FROM Transactions
@@ -42,4 +53,5 @@ module.exports = {
 	selectAll,
 	selectAllByUserId,
 	insertSingle,
+	selectSpentPoints,
 };

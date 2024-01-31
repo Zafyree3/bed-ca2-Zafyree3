@@ -7,6 +7,9 @@ const jwtMiddleware = require("../middlewares/jwtMiddleware");
 
 router.get("/", catOwnedController.readCatOwned);
 router.get("/details", catOwnedController.readCatOwnedDetails);
+
+router.get("/count", catOwnedController.catOwnedCount);
+
 router.get(
 	"/:id/details",
 	catOwnedController.checkIfCatOwnedExist,

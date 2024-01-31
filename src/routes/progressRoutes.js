@@ -6,6 +6,9 @@ const jwtMiddleware = require("../middlewares/jwtMiddleware");
 
 router.post("/", jwtMiddleware.verifyToken, progressController.createProgress);
 router.get("/", progressController.readProgress);
+
+router.get("/count", progressController.countProgress);
+
 router.get(
 	"/user",
 	jwtMiddleware.verifyToken,

@@ -1,5 +1,15 @@
 const pool = require("../services/db");
 
+async function countAllTaskProgresses() {
+	const SQLQUERY = `
+		SELECT COUNT(*) AS total FROM TaskProgress;
+	`;
+
+	const [header, _] = await pool.query(SQLQUERY);
+
+	return header;
+}
+
 async function insertNewTaskProgress(data) {
 	const SQLQUERY = `
         INSERT INTO TaskProgress (user_id, task_id, completion_date, notes)
@@ -124,4 +134,5 @@ module.exports = {
 	deleteTaskProgressByTaskId,
 	selectAllTaskProgresses,
 	selectTaskProgressByUserId,
+	countAllTaskProgresses,
 };

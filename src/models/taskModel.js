@@ -16,9 +16,10 @@ async function insertNewTask(data) {
 
 async function selectTasksByUserId(data) {
 	const SQLQUERY = `
-		SELECT t.title, t.task_id, t.description, t.points, IF(tp.user_id IS NOT NULL, 1, 0) as completed FROM Task as t
-		LEFT JOIN TaskProgress tp on t.task_id = tp.task_id
-		WHERE tp.user_id = ? or tp.user_id IS NULL
+		SELECT Task.task_id, IF(count(TaskProgress.notes) > 0, 1, 0) as completed FROM Task
+		LEFT JOIN TaskProgress ON TaskProgress.task_id = Task.task_id
+		WHERE TaskProgress.user_id = ? OR TaskProgress.user_id IS NULL
+		GROUP BY Task.task_id
 	`;
 
 	const VALUES = [data.user_id];

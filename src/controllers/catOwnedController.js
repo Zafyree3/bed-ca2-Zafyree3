@@ -1,6 +1,12 @@
 const catOwnedModel = require("../models/catOwnedModel");
 const moment = require("moment");
 
+async function catOwnedCount(req, res, next) {
+	const results = await catOwnedModel.countAllCatOwned();
+
+	res.status(200).json(results[0]);
+}
+
 async function addCatOwned(req, res, next) {
 	// TODO: FIX THIS, ALREADY HAVE ANOTHER FUCTIOSN CALLED CREATEDCATOWNED
 	let data = {
@@ -260,4 +266,5 @@ module.exports = {
 	createCatOwned,
 	updateCatOwnedFromId,
 	deleteCatOwnedFromId,
+	catOwnedCount,
 };

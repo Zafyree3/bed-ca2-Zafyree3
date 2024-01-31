@@ -1,5 +1,11 @@
 const transactionModel = require("../models/transactionModel.js");
 
+async function getSpentPoints(req, res, next) {
+	const results = await transactionModel.selectSpentPoints();
+
+	res.status(200).json(results[0]);
+}
+
 async function readTransactions(req, res, next) {
 	// Read all transactions
 	let results = await transactionModel.selectAll();
@@ -48,4 +54,5 @@ module.exports = {
 	readTransactions,
 	readTransactionsByUserId,
 	createTransaction,
+	getSpentPoints,
 };

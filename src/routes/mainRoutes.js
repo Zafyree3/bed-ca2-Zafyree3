@@ -30,6 +30,7 @@ const userController = require("../controllers/userController");
 const jwtMiddleware = require("../middlewares/jwtMiddleware");
 const bcryptMiddleware = require("../middlewares/bcryptMiddleware");
 const pointsController = require("../controllers/pointsController");
+const transactionController = require("../controllers/transactionController");
 
 router.post(
 	"/register",
@@ -42,6 +43,8 @@ router.post(
 	jwtMiddleware.generateRefreshToken,
 	jwtMiddleware.sendToken
 );
+
+router.get("/transactions/spent", transactionController.getSpentPoints);
 
 router.post(
 	"/login",

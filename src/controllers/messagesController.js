@@ -48,14 +48,15 @@ async function updateMessageById(req, res, next) {
 	) {
 		res.status(400).send("Error: message_text is undefined or empty");
 		return;
-	} else if (req.body.user_id == undefined) {
-		res.status(400).send("Error: userId is undefined");
-		return;
 	}
+	// else if (req.body.user_id == undefined) {
+	// 	res.status(400).send("Error: userId is undefined");
+	// 	return;
+	// }
 
 	const data = {
 		id: req.params.id,
-		user_id: req.body.user_id,
+		user_id: req.body.user_id || res.locals.userId,
 		message_text: req.body.message_text,
 	};
 
