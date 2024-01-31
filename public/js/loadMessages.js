@@ -9,7 +9,17 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 function loadMessage(token) {
+	const loadingScreen = document.getElementById("loading-screen");
+
 	const callback = (status, data) => {
+		if (status !== 200) {
+			createErrorToast(data.error);
+
+			checkStatusForRefresh(status);
+
+			return;
+		}
+
 		const messageDiv = document.getElementById("messages-container");
 		messageDiv.innerHTML = "";
 
@@ -74,7 +84,6 @@ function loadMessage(token) {
 		);
 
 		popoverTriggerList.forEach((popoverTriggerEl) => {
-			console.log(popoverTriggerEl);
 			const options = {
 				html: true,
 				trigger: "click",
@@ -95,6 +104,12 @@ function loadMessage(token) {
 						if (status == 200) {
 							loadMessage(token);
 							popover.hide();
+						} else {
+							createErrorToast(data.error);
+
+							checkStatusForRefresh(status);
+
+							return;
 						}
 					};
 
@@ -108,7 +123,13 @@ function loadMessage(token) {
 				});
 			});
 		});
+
+		loadingScreen.classList.remove("d-block");
+		loadingScreen.classList.add("d-none");
 	};
+
+	loadingScreen.classList.remove("d-none");
+	loadingScreen.classList.add("d-block");
 
 	fetchMethod(currentUrl + "/api/messages/", callback, "GET", null, token);
 }

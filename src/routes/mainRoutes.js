@@ -39,8 +39,8 @@ router.post(
 	userController.registerUser,
 	pointsController.createUserPointsRelRegister,
 	jwtMiddleware.generateToken,
-	jwtMiddleware.sendToken,
-	
+	jwtMiddleware.generateRefreshToken,
+	jwtMiddleware.sendToken
 );
 
 router.post(
@@ -48,6 +48,15 @@ router.post(
 	userController.loginUser,
 	bcryptMiddleware.comparePassword,
 	jwtMiddleware.generateToken,
+	jwtMiddleware.generateRefreshToken,
+	jwtMiddleware.sendToken
+);
+
+router.post(
+	"/refresh",
+	jwtMiddleware.refreshToken,
+	jwtMiddleware.generateToken,
+	jwtMiddleware.generateRefreshToken,
 	jwtMiddleware.sendToken
 );
 

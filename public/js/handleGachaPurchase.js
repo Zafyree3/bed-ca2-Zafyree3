@@ -2,6 +2,10 @@ function buyGacha(id) {
 	const token = localStorage.getItem("token");
 	const callback = (status, data) => {
 		if (status !== 200 && status !== 201) {
+			createErrorToast(data.error);
+
+			checkStatusForRefresh(status);
+
 			return;
 		}
 
@@ -23,6 +27,8 @@ function buyGacha(id) {
 		modalBody.appendChild(redirectButton);
 
 		modal.show();
+
+		loadPoints();
 	};
 
 	const data = {

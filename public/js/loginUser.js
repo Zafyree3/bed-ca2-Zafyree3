@@ -7,12 +7,12 @@ document.addEventListener("DOMContentLoaded", function () {
 			if (responseData.token) {
 				// Store the token in local storage
 				localStorage.setItem("token", responseData.token);
+				localStorage.setItem("refresh", responseData.refresh);
 				// Redirect or perform further actions for logged-in user
 				window.location.href = "profile.html";
 			}
 		} else {
 			createErrorToast(responseData.error);
-=
 		}
 	};
 
@@ -40,5 +40,3 @@ document.addEventListener("DOMContentLoaded", function () {
 		loginForm.reset();
 	});
 });
-
-

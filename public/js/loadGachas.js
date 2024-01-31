@@ -4,6 +4,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 function loadGacha() {
 	const gachaRow = document.getElementById("box-row");
+	const loadingScreen = document.getElementById("loading-screen");
 
 	const callback = (status, data) => {
 		console.log(data);
@@ -66,7 +67,13 @@ function loadGacha() {
 
 			gachaRow.appendChild(gachaCol);
 		});
+
+		loadingScreen.classList.remove("d-block");
+		loadingScreen.classList.add("d-none");
 	};
+
+	loadingScreen.classList.remove("d-none");
+	loadingScreen.classList.add("d-block");
 
 	fetchMethod(currentUrl + "/api/shop/gachas", callback, "GET");
 }

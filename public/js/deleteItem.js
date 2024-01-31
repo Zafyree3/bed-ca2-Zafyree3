@@ -11,6 +11,14 @@ function deleteItem(itemId) {
 		const token = localStorage.getItem("token");
 
 		const callback = (status, data) => {
+			if (status != 200) {
+				createErrorToast(data.error);
+
+				checkStatusForRefresh(status);
+
+				return;
+			}
+
 			console.log(data);
 			loadInventory();
 			deleteModal.hide();

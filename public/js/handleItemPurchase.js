@@ -4,6 +4,10 @@ function buyItem(id) {
 		console.log(data);
 
 		if (status !== 200 && status !== 201) {
+			createErrorToast(data.error);
+
+			checkStatusForRefresh(status);
+
 			return;
 		}
 
@@ -27,6 +31,8 @@ function buyItem(id) {
 		modalBody.appendChild(redirectButton);
 
 		modal.show();
+
+		loadPoints();
 	};
 
 	const data = {

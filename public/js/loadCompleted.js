@@ -5,8 +5,47 @@ document.addEventListener("DOMContentLoaded", function () {
 function loadCompleted() {
 	const token = localStorage.getItem("token");
 	const completedDiv = document.getElementById("completed-row");
+	const loadingScreen = document.getElementById("loading-screen");
 
 	const callback = (status, data) => {
+		if (status !== 200) {
+			const wrapper = document.getElementById("completed-task-wrapper");
+			wrapper.hidden = true;
+
+			createErrorToast(data.error);
+
+			// if (status === 401) {
+			// 	const refreshToken = localStorage.getItem("refresh");
+
+			// 	const callback = (status, data) => {
+			// 		loadingScreen.classList.remove("d-block");
+			// 		loadingScreen.classList.add("d-none");
+
+			// 		if (status === 200) {
+			// 			localStorage.setItem("token", data.token);
+			// 			localStorage.setItem("refresh", data.refresh);
+			// 			location.reload();
+			// 		} else {
+			// 			localStorage.removeItem("token");
+			// 			localStorage.removeItem("refresh");
+			// 			window.location.href = "login.html";
+			// 		}
+			// 	};
+
+			// 	const data = {
+			// 		refreshToken: refreshToken,
+			// 	};
+
+			// 	loadingScreen.classList.remove("d-none");
+			// 	loadingScreen.classList.add("d-block");
+
+			// 	fetchMethod(currentUrl + "/api/refresh", callback, "POST", data);
+			// }
+
+			checkStatusForRefresh(status);
+
+			return;
+		}
 		console.log(data);
 		completedDiv.innerHTML = "";
 
@@ -64,10 +103,16 @@ function loadCompleted() {
 				editModalSubmit.addEventListener("click", function () {
 					const token = localStorage.getItem("token");
 
+					loadingScreen.classList.remove("d-none");
+					loadingScreen.classList.add("d-block");
+
 					const callback = (status, data) => {
 						console.log(data);
 						loadCompleted();
 						modal.hide();
+
+						loadingScreen.classList.remove("d-block");
+						loadingScreen.classList.add("d-none");
 					};
 
 					const data = {
@@ -104,12 +149,18 @@ function loadCompleted() {
 
 			completedDiv.appendChild(completedCol);
 		});
+
+		loadingScreen.classList.remove("d-block");
+		loadingScreen.classList.add("d-none");
 	};
 
 	if (token === null) {
 		const wrapper = document.getElementById("completed-task-wrapper");
 		wrapper.hidden = true;
 	} else {
+		loadingScreen.classList.remove("d-none");
+		loadingScreen.classList.add("d-block");
+
 		fetchMethod(
 			currentUrl + "/api/task_progress/user",
 			callback,

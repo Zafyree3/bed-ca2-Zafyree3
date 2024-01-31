@@ -4,6 +4,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 function loadItem() {
 	const itemRow = document.getElementById("item-row");
+	const loadingScreen = document.getElementById("loading-screen");
 
 	const callback = (status, data) => {
 		console.log(data);
@@ -66,7 +67,13 @@ function loadItem() {
 
 			itemRow.appendChild(itemCol);
 		});
+
+		loadingScreen.classList.remove("d-block");
+		loadingScreen.classList.add("d-none");
 	};
+
+	loadingScreen.classList.add("d-block");
+	loadingScreen.classList.remove("d-none");
 
 	fetchMethod(currentUrl + "/api/shop/items", callback, "GET");
 }

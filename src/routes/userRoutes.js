@@ -23,6 +23,13 @@ router.get(
 );
 
 router.get(
+	"/points",
+	jwtMiddleware.verifyToken,
+	userController.readUserPoints,
+	userController.sendUserPoints
+);
+
+router.get(
 	"/:id",
 	userController.checkIfUserExist,
 	userController.readUserFromId

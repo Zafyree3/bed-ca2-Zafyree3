@@ -1,5 +1,18 @@
 const pool = require("../services/db");
 
+async function selectPointsByUser(data) {
+	const SQLQUERY = `
+	SELECT points, last_updated FROM UserPointsRel
+	WHERE user_id = ?;
+	`;
+
+	const VALUES = [data.user_id];
+
+	const [header, _] = await pool.query(SQLQUERY, VALUES);
+
+	return header;
+}
+
 async function insertNewUser(data) {
 	const SQLQUERY = `
         INSERT INTO User (username, email, password)

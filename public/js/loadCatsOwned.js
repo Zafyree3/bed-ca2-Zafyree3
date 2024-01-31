@@ -9,13 +9,20 @@ function rng(min, max) {
 function loadCatsOwned() {
 	const token = localStorage.getItem("token");
 	const catRow = document.getElementById("cats-row");
+	const loadingScreen = document.getElementById("loading-screen");
 
 	const cat_types = ["calico", "gray-tabby", "orange-tabby"];
 
 	const cat_positions = ["sit", "walk", "sleep"];
 
 	const callback = (status, data) => {
-		console.log(data);
+		if (status !== 200) {
+			createErrorToast(data.error);
+
+			checkStatusForRefresh(status);
+
+			return;
+		}
 
 		catRow.innerHTML = "";
 		data.forEach((cat) => {
@@ -81,7 +88,13 @@ function loadCatsOwned() {
 
 			catRow.appendChild(catCol);
 		});
+
+		loadingScreen.classList.remove("d-block");
+		loadingScreen.classList.add("d-none");
 	};
+
+	loadingScreen.classList.remove("d-none");
+	loadingScreen.classList.add("d-block");
 
 	fetchMethod(currentUrl + "/api/owned/owner", callback, "GET", null, token);
 }

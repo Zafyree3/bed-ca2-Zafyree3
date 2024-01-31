@@ -1,5 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
 	const token = localStorage.getItem("token");
+	const loadingScreen = document.getElementById("loading-screen");
 
 	const tasksCallback = (status, data) => {
 		const taskCount = data.length;
@@ -115,8 +116,6 @@ document.addEventListener("DOMContentLoaded", () => {
 	};
 
 	const transcationCallback = (status, data) => {
-		console.log(data);
-
 		let pointList = [0];
 		data.forEach((transaction) => {
 			pointList.push(transaction.points);

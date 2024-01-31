@@ -3,6 +3,7 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 function loadTasks() {
+	const loadingScreen = document.getElementById("loading-screen");
 	const taskDiv = document.getElementById("task-row");
 
 	const callback = (status, data) => {
@@ -45,11 +46,14 @@ function loadTasks() {
 			taskButton.className = "btn btn-info";
 			taskButton.innerHTML = "Completed?";
 
-			if (task.completed == 1) {
-				taskButton.disabled = true;
-			}
+			// if (task.completed == 1) {
+			// 	taskButton.disabled = true;
+			// }
 
 			taskButton.addEventListener("click", function () {
+				loadingScreen.classList.remove("d-none");
+				loadingScreen.classList.add("d-block");
+
 				const token = localStorage.getItem("token");
 
 				const callback = (status, data) => {
@@ -63,6 +67,9 @@ function loadTasks() {
 						console.log("test");
 						const transCallback = (status, data) => {
 							console.log("none");
+
+							loadingScreen.classList.remove("d-block");
+							loadingScreen.classList.add("d-none");
 						};
 
 						const transData = {
@@ -122,9 +129,9 @@ function loadTasks() {
 			taskCard.appendChild(taskCardBody);
 			taskCard.appendChild(taskFooter);
 
-			if (task.completed == 1) {
-				taskCard.classList.add("bg-success", "text-white", "bg-opacity-50");
-			}
+			// if (task.completed == 1) {
+			// 	taskCard.classList.add("bg-success", "text-white", "bg-opacity-50");
+			// }
 
 			taskCard.dataset.id = task.task_id;
 			taskCard.dataset.points = task.points;
@@ -133,9 +140,15 @@ function loadTasks() {
 
 			taskDiv.appendChild(taskCol);
 		});
+
+		loadingScreen.classList.remove("d-block");
+		loadingScreen.classList.add("d-none");
 	};
 
 	let token = localStorage.getItem("token");
 
-	fetchMethod(currentUrl + "/api/tasks/user", callback, "GET", null, token);
+	loadingScreen.classList.remove("d-none");
+	loadingScreen.classList.add("d-block");
+
+	fetchMethod(currentUrl + "/api/tasks", callback, "GET", null, token);
 }

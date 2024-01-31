@@ -9,6 +9,14 @@ function editCat(id, name) {
 		const token = localStorage.getItem("token");
 
 		const callback = (status, data) => {
+			if (status != 200) {
+				createErrorToast(data.error);
+
+				checkStatusForRefresh(status);
+
+				return;
+			}
+
 			console.log(data);
 			loadCatsOwned();
 			modal.hide();

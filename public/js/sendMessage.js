@@ -9,6 +9,12 @@ document.addEventListener("DOMContentLoaded", () => {
 			if (status === 201) {
 				document.querySelector("#message-send-input").value = "";
 				loadMessage(localStorage.getItem("token"));
+			} else {
+				createErrorToast(data.error);
+
+				checkStatusForRefresh(status);
+
+				return;
 			}
 		};
 

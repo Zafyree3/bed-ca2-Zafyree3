@@ -1,5 +1,21 @@
 const userModel = require("../models/userModel");
 
+async function readUserPoints(req, res, next) {
+	const results = await userModel.selectPointsByUser({
+		user_id: res.locals.userId,
+	});
+
+	res.locals.points = results[0].points;
+
+	next();
+}
+
+async function sendUserPoints(req, res, next) {
+	res.status(200).json({
+		points: res.locals.points,
+	});
+}
+
 async function readUsers(req, res, next) {
 	const results = await userModel.selectAllUsers();
 
@@ -269,4 +285,6 @@ module.exports = {
 	readUserProfile,
 	readUserPoints,
 	sendUserProfile,
+	sendUserPoints,
+	readUserPoints,
 };
