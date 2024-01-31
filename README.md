@@ -6,11 +6,15 @@
 - Add a trading system
 - Screw the orignal game
 
-## Idea
+# Video
+
+[![Youtube Link](https://img.youtube.com/vi/1DDHHjQxc9s/0.jpg)](https://www.youtube.com/watch?v=1DDHHjQxc9s)
+
+# Idea
 
 A Neko Atsume like game
 
-## Gameplay
+# Gameplay
 
 1. Users will complete tasks to earn points
    - Task will be generated and created by an admin,
