@@ -40,7 +40,8 @@ function loadInventory() {
 			inventoryDescription.innerHTML = item.description;
 
 			const inventoryFooter = document.createElement("div");
-			inventoryFooter.className = "card-footer";
+			inventoryFooter.className =
+				"card-footer gap-2 d-flex align-items-center justify-content-center";
 
 			const inventoryButton = document.createElement("button");
 			inventoryButton.className = "btn btn-danger";
@@ -49,6 +50,20 @@ function loadInventory() {
 			inventoryButton.addEventListener("click", function () {
 				deleteItem(item.item_id);
 			});
+
+			let useButton;
+
+			if (item.name == "Shipping Box") {
+				useButton = document.createElement("button");
+				useButton.className = "btn btn-primary";
+				useButton.innerHTML = "Use";
+
+				useButton.addEventListener("click", function () {
+					useShippingBox(item.item_id);
+				});
+
+				inventoryFooter.appendChild(useButton);
+			}
 
 			inventoryFooter.appendChild(inventoryButton);
 

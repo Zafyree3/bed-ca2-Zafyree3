@@ -164,6 +164,53 @@
 				</div>
 			</div>
 
+			<div
+				class="modal fade"
+				id="shippingModal"
+				tabindex="-1"
+				aria-labelledby="shippingModalLabel"
+				aria-hidden="true">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h1 class="modal-title fs-5" id="deleteModalLabel">Ship Cats</h1>
+							<button
+								type="button"
+								class="btn-close"
+								data-bs-dismiss="modal"
+								aria-label="Close"></button>
+						</div>
+						<div class="modal-body">
+							<div class="mb-3 ">
+								<h3 class>What cat do you want to send?</h3>
+								<select id="shippingCatSelect" label="Cats"
+									class="form-select"></select>
+							</div>
+
+							<div>
+								<h3 class>Who do you want to send it too</h3>
+								<select id="shippingUserSelect" label="Users"
+									class="form-select"></select>
+							</div>
+						</div>
+						<div class="modal-footer">
+							<button
+								type="button"
+								class="btn btn-secondary"
+								data-bs-dismiss="modal">
+								Cancel
+							</button>
+							<button
+								id="shippingModalSubmit"
+								type="button"
+								class="btn btn-success ">
+								Ship
+							</button>
+						</div>
+					</div>
+				</div>
+			</div>
+
 			<div class="toast-container position-fixed bottom-0 end-0 p-3"
 				id="toast-container">
 			</div>
@@ -206,5 +253,6 @@
 
 		<script src="js/loadInventory.js" type="text/javascript"></script>
 		<script src="js/deleteItem.js" type="text/javascript"></script>
+		<script src="js/handleShippingBox.js" type="text/javascript"></script>
 	</body>
 </html>
